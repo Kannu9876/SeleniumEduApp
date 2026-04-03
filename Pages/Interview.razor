@@ -1,0 +1,208 @@
+@page "/interview"
+@using SeleniumEduApp.Services
+@using SeleniumEduApp.Models
+@using System.Text.RegularExpressions
+@using Blazored.LocalStorage
+@inject GeminiAssistantService AiBot
+@inject ILocalStorageService LocalStorage
+
+<PageTitle>AI Interview Prep</PageTitle>
+
+<div class="container mt-4">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h2 class="fw-bold m-0" style="color: #512BD4;">
+            <span class="bi bi-person-badge"></span> Mock Interview Assistant
+        </h2>
+        <div class="d-flex gap-3 align-items-center">
+            <span class="text-muted fw-bold">Q: @(QuestionIndex + 1)/@Questions.Count</span>
+            <span class="badge bg-warning text-dark fs-6 shadow-sm">
+                🪙 @UserStats.DailyTokens Tokens Left
+            </span>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-7">
+            <div class="card shadow-sm border-0 mb-4">
+                <div class="card-body p-4">
+                    <div class="d-flex justify-content-between align-items-start mb-3">
+                        <h5 class="fw-bold text-primary">Current Question:</h5>
+                        <button class="btn btn-outline-secondary btn-sm" @onclick="NextQuestion">
+                            <i class="bi bi-arrow-right-circle"></i> Skip / Next
+                        </button>
+                    </div>
+                    
+                    <div class="p-3 bg-light rounded border mb-4" style="min-height: 80px;">
+                        <p class="fs-5 mb-0 fw-semibold">@CurrentQuestion</p>
+                    </div>
+                    
+                    <div class="mb-3">
+                        <label class="form-label fw-bold">Your Answer (STAR Method):</label>
+                        <textarea @bind="UserAnswer" class="form-control" rows="7" 
+                                  placeholder="Describe Situation, Task, Action, and Result..."></textarea>
+                    </div>
+
+                    <div class="row g-2">
+                        <div class="col-8">
+                            <button class="btn btn-primary w-100 py-3 fw-bold shadow" @onclick="SubmitToAI" disabled="@(UserStats.DailyTokens <= 0 || IsLoading)">
+                                @if (IsLoading)
+                                {
+                                    <span class="spinner-border spinner-border-sm"></span> <span> Evaluating...</span>
+                                }
+                                else
+                                {
+                                    <span class="bi bi-cpu"></span> <span>Get AI Feedback</span>
+                                }
+                            </button>
+                        </div>
+                        <div class="col-4">
+                            <button class="btn btn-light w-100 py-3 fw-bold border" @onclick="ResetForm">
+                                <i class="bi bi-eraser"></i> Clear
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-5">
+            @if (!string.IsNullOrEmpty(AIFeedback))
+            {
+                var score = ExtractScore(AIFeedback);
+                var badgeClass = score >= 8 ? "bg-success" : (score >= 5 ? "bg-warning text-dark" : "bg-danger");
+
+                <div class="card border-0 shadow-sm animate__animated animate__fadeIn">
+                    <div class="card-header @badgeClass text-white text-center py-3">
+                        @if (IsFromCache)
+                        {
+                            <div class="badge bg-light text-dark mb-1">⚡ Instant Cache Match</div>
+                        }
+                        <h4 class="mb-0 fw-bold">Score: @score / 10</h4>
+                    </div>
+                    <div class="card-body bg-white shadow-lg" style="max-height: 550px; overflow-y: auto;">
+                        <div style="white-space: pre-wrap; font-size: 0.95rem;">
+                            @AIFeedback
+                        </div>
+                    </div>
+                </div>
+            }
+            else if (UserStats.DailyTokens <= 0)
+            {
+                <div class="card bg-danger text-white text-center p-5">
+                    <i class="bi bi-lock-fill fs-1"></i>
+                    <h4 class="mt-3">Daily Tokens Exhausted</h4>
+                    <p>Come back tomorrow for 5 fresh tokens or use your own API Key.</p>
+                </div>
+            }
+            else
+            {
+                <div class="card border-dashed text-center p-5 bg-light h-100 d-flex flex-column justify-content-center">
+                    <span class="bi bi-robot fs-1 text-muted"></span>
+                    <h5 class="mt-3 text-muted">AI Feedback Panel</h5>
+                    <p class="text-muted px-4">Submit your technical answer to receive a score and professional improvement tips.</p>
+                </div>
+            }
+        </div>
+    </div>
+</div>
+
+<style>
+    .border-dashed { border: 2px dashed #dee2e6; border-radius: 15px; }
+    .card { border-radius: 15px; }
+    .btn-primary { background-color: #512BD4; border: none; }
+    .btn-primary:hover { background-color: #3f21a1; }
+</style>
+
+@code {
+    private int QuestionIndex = 0;
+    private string UserAnswer = "";
+    private string AIFeedback = "";
+    private bool IsLoading = false;
+    private bool IsFromCache = false;
+    private UserProfile UserStats = new UserProfile();
+
+    private List<string> Questions = new List<string> {
+        "What is the difference between Implicit, Explicit, and Fluent Wait in Selenium?",
+        "How do you handle dynamic WebElements whose IDs change on every refresh?",
+        "Explain Page Object Model (POM) and how it helps in framework maintenance.",
+        "How do you handle multiple windows or tabs in Selenium C#?",
+        "What is IJavaScriptExecutor and when should you use it?",
+        "Explain the difference between FindElement() and FindElements().",
+        "How do you perform Drag and Drop actions using Selenium?",
+        "What are the different types of locators in Selenium? Which one is the fastest?",
+        "How do you handle Alerts/Pop-ups in Selenium C#?",
+        "What is the use of Actions class in Selenium?",
+        "How do you handle a dropdown that is not a 'Select' tag?",
+        "How do you take a screenshot for a failed test case?",
+        "Explain Parallel Testing in Selenium and how to achieve it using NUnit/MSTest.",
+        "How do you handle Web-based vs Window-based popups?",
+        "What is the purpose of the DotNetSeleniumExtras PageObjects package?",
+        "How do you verify if an element is displayed, enabled, or selected?",
+        "Explain the use of 'ExpectedConditions' in Selenium.",
+        "How do you upload a file using Selenium C#?",
+        "What is a StaleElementReferenceException and how do you fix it?",
+        "How do you handle Synchronization issues in your automation framework?"
+    };
+
+    private string CurrentQuestion => Questions[QuestionIndex];
+
+    protected override async Task OnInitializedAsync()
+    {
+        var savedProfile = await LocalStorage.GetItemAsync<UserProfile>("userProfile");
+        if (savedProfile != null) UserStats = savedProfile;
+    }
+
+    private async Task SubmitToAI()
+    {
+        if (string.IsNullOrWhiteSpace(UserAnswer)) return;
+
+        IsLoading = true;
+        IsFromCache = false;
+
+        // Cache Key: Question + Answer (Unique)
+        string cacheKey = "int_v2_" + (CurrentQuestion + UserAnswer).GetHashCode();
+        var cachedData = await LocalStorage.GetItemAsync<string>(cacheKey);
+
+        if (!string.IsNullOrEmpty(cachedData))
+        {
+            AIFeedback = cachedData;
+            IsFromCache = true;
+            IsLoading = false;
+            return;
+        }
+
+        if (UserStats.DailyTokens <= 0) { IsLoading = false; return; }
+
+        UserStats.DailyTokens--;
+        await LocalStorage.SetItemAsync("userProfile", UserStats);
+
+        try 
+        {
+            AIFeedback = await AiBot.GetInterviewFeedbackAsync(CurrentQuestion, UserAnswer);
+            if (!string.IsNullOrEmpty(AIFeedback))
+                await LocalStorage.SetItemAsync(cacheKey, AIFeedback);
+        }
+        catch (Exception ex) { AIFeedback = "⚠️ Error: " + ex.Message; }
+        finally { IsLoading = false; }
+    }
+
+    private void NextQuestion()
+    {
+        if (QuestionIndex < Questions.Count - 1) QuestionIndex++;
+        else QuestionIndex = 0;
+        ResetForm();
+    }
+
+    private void ResetForm()
+    {
+        UserAnswer = "";
+        AIFeedback = "";
+        IsFromCache = false;
+    }
+
+    private int ExtractScore(string text)
+    {
+        var match = Regex.Match(text, @"(\d+)/10");
+        return match.Success ? int.Parse(match.Groups[1].Value) : 0;
+    }
+}

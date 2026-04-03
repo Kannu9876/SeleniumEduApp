@@ -1,0 +1,170 @@
+@page "/projects"
+
+<PageTitle>Selenium C# Roadmap</PageTitle>
+
+<div class="container mt-4">
+    <div class="text-center mb-5">
+        <h2 class="fw-bold" style="color: #512BD4;">
+            <span class="bi bi-rocket-takeoff-fill"></span> Selenium Project Roadmap
+        </h2>
+        <p class="text-muted">Master Selenium C# step-by-step from scratch to professional framework level.</p>
+        
+        <div class="btn-group mt-3 shadow-sm" role="group">
+            <button class="btn @(SelectedLevel == "All" ? "btn-dark" : "btn-outline-dark")" @onclick='() => FilterProjects("All")'>All Levels</button>
+            <button class="btn @(SelectedLevel == "Beginner" ? "btn-success text-white" : "btn-outline-success")" @onclick='() => FilterProjects("Beginner")'>Beginner</button>
+            <button class="btn @(SelectedLevel == "Intermediate" ? "btn-warning" : "btn-outline-warning")" @onclick='() => FilterProjects("Intermediate")'>Intermediate</button>
+            <button class="btn @(SelectedLevel == "Advanced" ? "btn-danger" : "btn-outline-danger")" @onclick='() => FilterProjects("Advanced")'>Advanced</button>
+        </div>
+    </div>
+
+    <div class="row g-4">
+        @foreach (var project in FilteredProjects)
+        {
+            <div class="col-md-6 col-lg-4">
+                <div class="card h-100 shadow-sm border-0 project-card">
+                    <div class="card-header @GetLevelClass(project.Level) text-white d-flex justify-content-between align-items-center">
+                        <span class="fw-bold"><i class="bi bi-layers"></i> @project.Level</span>
+                        <span class="badge bg-white text-dark opacity-75">@project.Time</span>
+                    </div>
+                    <div class="card-body">
+                        <h5 class="card-title fw-bold mb-2">@project.Title</h5>
+                        <p class="text-primary small mb-3 fw-bold"><i class="bi bi-cpu"></i> @project.Tech</p>
+                        <p class="card-text text-secondary small" style="min-height: 50px;">@project.Desc</p>
+                    </div>
+                    <div class="card-footer bg-transparent border-0 pb-3 text-center">
+                        <button class="btn btn-sm btn-dark w-100 rounded-pill py-2 fw-bold" @onclick="() => ShowGuide(project)">
+                            <i class="bi bi-eye"></i> View Project Guide
+                        </button>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+
+    @if (DisplayModal && SelectedProject != null)
+    {
+        <div class="modal fade show d-block" style="background: rgba(0,0,0,0.7); z-index: 1050;" tabindex="-1">
+            <div class="modal-dialog modal-lg modal-dialog-centered">
+                <div class="modal-content shadow-lg border-0" style="border-radius: 20px;">
+                    <div class="modal-header bg-light border-0">
+                        <h4 class="fw-bold text-primary mb-0">@SelectedProject.Title</h4>
+                        <button type="button" class="btn-close" @onclick="CloseModal"></button>
+                    </div>
+                    <div class="modal-body p-4">
+                        <div class="row">
+                            <div class="col-md-6 border-end">
+                                <h6 class="fw-bold text-dark"><i class="bi bi-info-circle-fill text-info"></i> Project Goal</h6>
+                                <p class="small text-muted mb-4">@SelectedProject.Desc</p>
+                                
+                                <h6 class="fw-bold text-dark"><i class="bi bi-list-check text-success"></i> Implementation Steps</h6>
+                                <ul class="small ps-3 text-secondary">
+                                    @foreach (var step in SelectedProject.Steps)
+                                    {
+                                        <li class="mb-2">@step</li>
+                                    }
+                                </ul>
+                            </div>
+                            <div class="col-md-6">
+                                <h6 class="fw-bold text-dark"><i class="bi bi-lightbulb-fill text-warning"></i> Expert Tips & Tech</h6>
+                                <div class="p-3 bg-dark text-white rounded small shadow-sm mb-3">
+                                    <strong>Tech Stack:</strong> @SelectedProject.Tech <br />
+                                    <strong>Complexity:</strong> @SelectedProject.Level <br />
+                                    <strong>Estimated Time:</strong> @SelectedProject.Time
+                                </div>
+                                <div class="alert alert-primary py-2 small">
+                                    <i class="bi bi-info-square"></i> Use <strong>WebDriverWait</strong> for all dynamic elements in this project to ensure 100% stability.
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer border-0">
+                        <button class="btn btn-outline-secondary rounded-pill px-4 fw-bold" @onclick="CloseModal">Close</button>
+                        <button class="btn btn-primary rounded-pill px-4 fw-bold" @onclick="CloseModal">Start Building 🚀</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
+</div>
+
+<style>
+    .project-card { transition: 0.3s; border-radius: 15px; overflow: hidden; }
+    .project-card:hover { transform: translateY(-8px); box-shadow: 0 15px 30px rgba(81, 43, 212, 0.15) !important; }
+    .btn-group .btn { padding: 10px 25px; font-weight: 600; }
+    .modal-content { animation: fadeInUp 0.3s ease-out; }
+    @@keyframes fadeInUp {
+        from { opacity: 0; transform: translateY(20px); }
+        to { opacity: 1; transform: translateY(0); }
+    }
+</style>
+
+@code {
+    private string SelectedLevel = "All";
+    private bool DisplayModal = false;
+    private ProjectItem? SelectedProject;
+
+    private void FilterProjects(string level) => SelectedLevel = level;
+
+    private List<ProjectItem> FilteredProjects => SelectedLevel == "All" 
+        ? AllProjects 
+        : AllProjects.Where(p => p.Level == SelectedLevel).ToList();
+
+    private void ShowGuide(ProjectItem project)
+    {
+        SelectedProject = project;
+        DisplayModal = true;
+    }
+
+    private void CloseModal() => DisplayModal = false;
+
+    private string GetLevelClass(string level) => level switch {
+        "Beginner" => "bg-success",
+        "Intermediate" => "bg-warning text-dark",
+        "Advanced" => "bg-danger",
+        _ => "bg-secondary"
+    };
+
+    // --- HARCODED DATA START ---
+    private List<ProjectItem> AllProjects = new List<ProjectItem> {
+        new ProjectItem {
+            Title = "Login Form Validator", Level = "Beginner", Time = "2h", Tech = "Selenium Core",
+            Desc = "Automate a standard login page with positive and negative test cases.",
+            Steps = new List<string> { "Launch Chrome using Driver instance", "Identify locators (ID, Name, CSS)", "Verify Error Messages on wrong inputs", "Assert success after correct login" }
+        },
+        new ProjectItem {
+            Title = "Alerts & Window Handler", Level = "Beginner", Time = "3h", Tech = "IAlert & IWindow",
+            Desc = "Handle JavaScript popups, confirmation boxes, and multiple browser tabs.",
+            Steps = new List<string> { "Open Demo Window URL", "Handle JS Alerts using SwitchTo().Alert()", "Switch between multiple Tabs/Windows", "Close child windows and return to main" }
+        },
+        new ProjectItem {
+            Title = "E-Commerce Scraper", Level = "Intermediate", Time = "6h", Tech = "Dynamic XPaths",
+            Desc = "Extract product names and prices from a live e-commerce site.",
+            Steps = new List<string> { "Navigate to Product Listing Page", "Wait for dynamic elements to load", "Use FindElements to get list of products", "Extract Text and Save to CSV/Excel" }
+        },
+        new ProjectItem {
+            Title = "Data Driven Framework", Level = "Intermediate", Time = "8h", Tech = "Excel + NUnit",
+            Desc = "Run the same test with 100 different sets of data from an external file.",
+            Steps = new List<string> { "Setup NUnit Test Project", "Read data from Excel using OfficeOpenXml", "Use [TestCaseSource] attribute", "Generate report for each data set" }
+        },
+        new ProjectItem {
+            Title = "Professional POM Setup", Level = "Advanced", Time = "15h", Tech = "Page Object Model",
+            Desc = "Create a maintainable framework using the POM design pattern.",
+            Steps = new List<string> { "Define Page Classes for each Page", "Implement PageFactory or BasePage methods", "Write clean Tests without locators", "Add ExtentReports for visual results" }
+        },
+        new ProjectItem {
+            Title = "GitHub Actions CI/CD", Level = "Advanced", Time = "5h", Tech = "CI/CD & Headless",
+            Desc = "Run your tests automatically on every code push using cloud servers.",
+            Steps = new List<string> { "Configure Headless Chrome options", "Write GitHub Actions YAML file", "Set up Trigger on Push/Pull Request", "View test reports in GitHub Artifacts" }
+        }
+    };
+    // --- HARCODED DATA END ---
+
+    public class ProjectItem {
+        public string Title { get; set; } = "";
+        public string Level { get; set; } = "";
+        public string Time { get; set; } = "";
+        public string Tech { get; set; } = "";
+        public string Desc { get; set; } = "";
+        public List<string> Steps { get; set; } = new();
+    }
+}

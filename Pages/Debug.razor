@@ -1,0 +1,139 @@
+@page "/debug"
+@using SeleniumEduApp.Services
+@using SeleniumEduApp.Models
+@using Blazored.LocalStorage
+@inject GeminiAssistantService AiBot
+@inject ILocalStorageService LocalStorage
+
+<PageTitle>AI Debug Bot</PageTitle>
+
+<div class="container mt-4">
+    <div class="d-flex justify-content-between align-items-center mb-2">
+        <h2 class="fw-bold m-0" style="color: #512BD4;">
+            <span class="bi bi-bug-fill"></span> AI Debug Assistant
+        </h2>
+        <span class="badge bg-warning text-dark fs-6 shadow-sm">
+            🪙 @UserStats.DailyTokens Tokens Left
+        </span>
+    </div>
+    <p class="text-muted">Paste your C# Selenium code and the error message below. Cost: 1 Token per new fix.</p>
+
+    <div class="row mt-4">
+        <div class="col-md-6">
+            <div class="mb-3">
+                <label class="form-label fw-bold">Your C# Code:</label>
+                <textarea @bind="UserCode" class="form-control" rows="6" placeholder="e.g. driver.FindElement(By.Id('login')).Click();"></textarea>
+            </div>
+            <div class="mb-3">
+                <label class="form-label fw-bold text-danger">Error Message:</label>
+                <textarea @bind="ErrorMessage" class="form-control" rows="3" placeholder="e.g. NoSuchElementException..."></textarea>
+            </div>
+            
+            <button class="btn btn-primary w-100 mb-4" style="background-color: #512BD4; border: none;" @onclick="AnalyzeError" disabled="@(UserStats.DailyTokens <= 0 || IsLoading)">
+                @if (IsLoading)
+                {
+                    <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+                    <span> Analyzing...</span>
+                }
+                else
+                {
+                    <span>Fix My Code (Costs 1 Token)</span>
+                }
+            </button>
+        </div>
+
+        <div class="col-md-6">
+            <label class="form-label fw-bold text-success">AI Solution:</label>
+            <div class="card bg-light">
+                <div class="card-body" style="min-height: 275px; white-space: pre-wrap;">
+                    @if (UserStats.DailyTokens <= 0 && string.IsNullOrEmpty(AiResponse))
+                    {
+                        <div class="alert alert-danger">
+                            <strong>Oh no!</strong> You have used all your free AI tokens for today.
+                        </div>
+                    }
+                    else if (string.IsNullOrEmpty(AiResponse))
+                    {
+                        <span class="text-muted fst-italic">Waiting for input...</span>
+                    }
+                    else
+                    {
+                        @if (IsFromCache)
+                        {
+                            <div class="badge bg-info mb-2">⚡ Solved via Cache (No token used)</div>
+                        }
+                        @AiResponse
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@code {
+    private string UserCode { get; set; } = "";
+    private string ErrorMessage { get; set; } = "";
+    private string AiResponse { get; set; } = "";
+    private bool IsLoading { get; set; } = false;
+    private bool IsFromCache { get; set; } = false; // Naya variable
+    
+    private UserProfile UserStats = new UserProfile();
+
+    protected override async Task OnInitializedAsync()
+    {
+        var savedProfile = await LocalStorage.GetItemAsync<UserProfile>("userProfile");
+        if (savedProfile != null)
+        {
+            UserStats = savedProfile;
+        }
+    }
+
+    private async Task AnalyzeError()
+    {
+        if (string.IsNullOrWhiteSpace(UserCode) || string.IsNullOrWhiteSpace(ErrorMessage))
+        {
+            AiResponse = "Please enter both Code and Error Message!";
+            return;
+        }
+
+        IsLoading = true;
+        IsFromCache = false;
+
+        // --- 🔍 SMART CACHE LOGIC START ---
+        // Error message ka ek unique naam banate hain (Cache Key)
+        string cacheKey = "cache_" + ErrorMessage.GetHashCode();
+        
+        var cachedResponse = await LocalStorage.GetItemAsync<string>(cacheKey);
+
+        if (!string.IsNullOrEmpty(cachedResponse))
+        {
+            // Agar pehle se answer hai, toh wahi dikhao
+            AiResponse = cachedResponse;
+            IsFromCache = true;
+            IsLoading = false;
+            return; // API call skip kar do!
+        }
+        // --- 🔍 SMART CACHE LOGIC END ---
+
+        if (UserStats.DailyTokens <= 0)
+        {
+            AiResponse = "Limit Reached! No tokens left.";
+            IsLoading = false;
+            return;
+        }
+
+        // Token tabhi katega jab naya sawal hoga
+        UserStats.DailyTokens--;
+        await LocalStorage.SetItemAsync("userProfile", UserStats);
+
+        AiResponse = await AiBot.GetDebugHelpAsync(UserCode, ErrorMessage);
+        
+        // Naye answer ko cache mein save kar lo
+        if (!string.IsNullOrEmpty(AiResponse) && !AiResponse.Contains("Error"))
+        {
+            await LocalStorage.SetItemAsync(cacheKey, AiResponse);
+        }
+
+        IsLoading = false;
+    }
+}

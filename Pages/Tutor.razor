@@ -1,0 +1,177 @@
+@page "/tutor"
+
+<PageTitle>Selenium C# Learning Academy</PageTitle>
+
+<div class="container-fluid mt-4">
+    <div class="row">
+        <div class="col-md-3 border-end shadow-sm bg-light" style="height: 88vh; overflow-y: auto;">
+            <h4 class="fw-bold text-primary p-3"><i class="bi bi-mortarboard-fill"></i> Syllabus Roadmap</h4>
+            
+            <div class="accordion accordion-flush" id="tutorAccordion">
+                <div class="accordion-item">
+                    <h2 class="accordion-header">
+                        <button class="accordion-button bg-success text-white py-2" type="button" data-bs-toggle="collapse" data-bs-target="#beginner">🟢 Beginner Foundation</button>
+                    </h2>
+                    <div id="beginner" class="accordion-collapse collapse show" data-bs-parent="#tutorAccordion">
+                        <div class="list-group list-group-flush">
+                            <button @onclick='() => LoadContent("C# Fundamentals")' class="list-group-item list-group-item-action small">1. C# Fundamentals</button>
+                            <button @onclick='() => LoadContent("Selenium Basics")' class="list-group-item list-group-item-action small">2. Selenium Basics</button>
+                            <button @onclick='() => LoadContent("Basic Automation")' class="list-group-item list-group-item-action small">3. Basic Automation</button>
+                            <button @onclick='() => LoadContent("Waits")' class="list-group-item list-group-item-action small">4. Synchronization (Waits)</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="accordion-item">
+                    <h2 class="accordion-header">
+                        <button class="accordion-button collapsed bg-warning text-dark py-2" type="button" data-bs-toggle="collapse" data-bs-target="#intermediate">🟡 Intermediate Scenarios</button>
+                    </h2>
+                    <div id="intermediate" class="accordion-collapse collapse" data-bs-parent="#tutorAccordion">
+                        <div class="list-group list-group-flush">
+                            <button @onclick='() => LoadContent("Handling Web Elements")' class="list-group-item list-group-item-action small">5. Handling Elements</button>
+                            <button @onclick='() => LoadContent("Advanced Locators")' class="list-group-item list-group-item-action small">6. Advanced Locators</button>
+                            <button @onclick='() => LoadContent("Test Framework Basics")' class="list-group-item list-group-item-action small">8. NUnit Framework</button>
+                            <button @onclick='() => LoadContent("Page Object Model")' class="list-group-item list-group-item-action small">9. Page Object Model</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="accordion-item">
+                    <h2 class="accordion-header">
+                        <button class="accordion-button collapsed bg-primary text-white py-2" type="button" data-bs-toggle="collapse" data-bs-target="#advanced">🔵 Advanced Frameworks</button>
+                    </h2>
+                    <div id="advanced" class="accordion-collapse collapse" data-bs-parent="#tutorAccordion">
+                        <div class="list-group list-group-flush">
+                            <button @onclick='() => LoadContent("Test Framework Design")' class="list-group-item list-group-item-action small">10. Hybrid Architecture</button>
+                            <button @onclick='() => LoadContent("Data Handling")' class="list-group-item list-group-item-action small">11. Data-Driven Testing</button>
+                            <button @onclick='() => LoadContent("Logging & Reporting")' class="list-group-item list-group-item-action small">12. Reports & Logs</button>
+                            <button @onclick='() => LoadContent("Parallel Execution")' class="list-group-item list-group-item-action small">13. Parallel Testing</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="accordion-item">
+                    <h2 class="accordion-header">
+                        <button class="accordion-button collapsed bg-danger text-white py-2" type="button" data-bs-toggle="collapse" data-bs-target="#expert">🔴 Expert & DevOps</button>
+                    </h2>
+                    <div id="expert" class="accordion-collapse collapse" data-bs-parent="#tutorAccordion">
+                        <div class="list-group list-group-flush">
+                            <button @onclick='() => LoadContent("CI/CD Integration")' class="list-group-item list-group-item-action small">15. Jenkins & Pipelines</button>
+                            <button @onclick='() => LoadContent("Docker + Selenium")' class="list-group-item list-group-item-action small">16. Dockerization</button>
+                            <button @onclick='() => LoadContent("API + UI Combo")' class="list-group-item list-group-item-action small">19. API + UI Validation</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-9 p-5 bg-white" style="height: 88vh; overflow-y: auto;">
+            @if (!string.IsNullOrEmpty(CurrentTitle))
+            {
+                <div class="animate__animated animate__fadeIn">
+                    <h1 class="fw-bold text-dark border-bottom pb-3 mb-4">@CurrentTitle</h1>
+                    <div class="content-style text-secondary">
+                        @((MarkupString)CurrentBody)
+                    </div>
+                    
+                    @if (!string.IsNullOrEmpty(CurrentCode))
+                    {
+                        <div class="mt-5">
+                            <h5 class="fw-bold text-dark mb-3"><i class="bi bi-code-square text-primary"></i> Production-Ready Example:</h5>
+                            <pre class="bg-dark text-light p-4 rounded-3 border-start border-5 border-primary shadow"><code>@CurrentCode</code></pre>
+                        </div>
+                    }
+                </div>
+            }
+            else
+            {
+                <div class="text-center mt-5 py-5">
+                    <i class="bi bi-mortarboard text-primary" style="font-size: 6rem;"></i>
+                    <h2 class="fw-bold mt-4">Welcome to Selenium C# Academy</h2>
+                    <p class="text-muted fs-5">Please select a module from the roadmap to view detailed documentation and code examples.</p>
+                </div>
+            }
+        </div>
+    </div>
+</div>
+
+<style>
+    .list-group-item { border-left: 4px solid transparent; transition: 0.2s; font-size: 0.95rem; }
+    .list-group-item:hover { background-color: #f0f4ff; border-left-color: #512BD4; padding-left: 20px; }
+    .content-style p { font-size: 1.15rem; line-height: 1.8; margin-bottom: 1.5rem; }
+    .content-style ul li { font-size: 1.1rem; margin-bottom: 0.8rem; }
+    pre { font-family: 'Fira Code', 'Consolas', monospace; font-size: 1rem; line-height: 1.5; overflow-x: auto; }
+</style>
+
+@code {
+    private string CurrentTitle = "";
+    private string CurrentBody = "";
+    private string CurrentCode = "";
+
+    private void LoadContent(string topic)
+    {
+        CurrentTitle = topic;
+        switch (topic)
+        {
+            case "C# Fundamentals":
+                CurrentBody = @"<p>C# is a strongly typed, object-oriented language. For Selenium automation, mastering its core syntax is non-negotiable. 
+                                Key concepts include <b>Variables</b> for data storage, <b>Control Flows</b> (if/else, switch) for decision making, and <b>Loops</b> (for, foreach) for iterating through web elements.</p>
+                                <ul>
+                                    <li><b>Classes & Objects:</b> The blueprint of your automation scripts.</li>
+                                    <li><b>Exception Handling:</b> Using try-catch blocks to prevent script crashes during runtime errors.</li>
+                                </ul>";
+                CurrentCode = "public class UserProfile\n{\n    public void ValidateUser(int age)\n    {\n        try {\n            if(age >= 18) \n                Console.WriteLine(\"Eligible for Registration\");\n        } catch(Exception ex) {\n            Console.WriteLine($\"Error encountered: {ex.Message}\");\n        }\n    }\n}";
+                break;
+
+            case "Selenium Basics":
+                CurrentBody = @"<p><b>Selenium WebDriver</b> is the core component that allows you to execute test scripts against different browsers. It uses a driver-specific execution engine (like ChromeDriver) to communicate directly with the browser's native support for automation.</p>
+                                <p>In the .NET ecosystem, you must install the <code>Selenium.WebDriver</code> and <code>Selenium.WebDriver.ChromeDriver</code> NuGet packages to get started.</p>";
+                CurrentCode = "using OpenQA.Selenium;\nusing OpenQA.Selenium.Chrome;\n\n// Initialize the Driver\nIWebDriver driver = new ChromeDriver();\n\n// Manage Browser Window\ndriver.Manage().Window.Maximize();\ndriver.Navigate().GoToUrl(\"https://www.google.com\");";
+                break;
+
+            case "Basic Automation":
+                CurrentBody = @"<p>Element identification is the backbone of automation. Selenium uses <b>Locators</b> to find elements in the DOM. Once found, we perform <b>Actions</b> such as clicking buttons or entering text.</p>
+                                <ul>
+                                    <li><b>By.Id:</b> The fastest and most reliable locator.</li>
+                                    <li><b>By.XPath:</b> Powerful for navigating complex HTML structures.</li>
+                                    <li><b>SendKeys():</b> Used to input data into text fields.</li>
+                                </ul>";
+                CurrentCode = "// Locating and interacting with elements\nIWebElement searchBox = driver.FindElement(By.Name(\"q\"));\nsearchBox.SendKeys(\"Selenium C# Automation\");\n\n// Performing a click\nIWebElement searchBtn = driver.FindElement(By.Name(\"btnK\"));\nsearchBtn.Submit();";
+                break;
+
+            case "Waits":
+                CurrentBody = @"<p>Web applications are asynchronous. Elements might take time to load due to network latency or JavaScript execution. <b>Synchronization (Waits)</b> ensures your script waits for an element to be ready before interacting with it, preventing the dreaded <i>NoSuchElementException</i>.</p>
+                                <ul>
+                                    <li><b>Implicit Wait:</b> A global setting that tells the driver to poll the DOM for a certain duration.</li>
+                                    <li><b>Explicit Wait:</b> Highly recommended. It waits for a specific <b>ExpectedCondition</b> (e.g., element is clickable).</li>
+                                </ul>";
+                CurrentCode = "using OpenQA.Selenium.Support.UI;\n\n// Explicit Wait Implementation\nWebDriverWait wait = new WebDriverWait(driver, TimeSpan.FromSeconds(15));\nIWebElement loginBtn = wait.Until(d => d.FindElement(By.Id(\"login\")));\nloginBtn.Click();";
+                break;
+
+            case "Handling Web Elements":
+                CurrentBody = @"<p>Professional automation requires handling complex UI components like <b>JavaScript Alerts</b>, <b>iFrames</b>, and <b>Multiple Browser Tabs</b>. These elements exist outside the standard page context and require switching the driver's focus.</p>";
+                CurrentCode = "// Handling Alerts\ndriver.SwitchTo().Alert().Accept();\n\n// Handling iFrames\ndriver.SwitchTo().Frame(\"iframe_id\");\ndriver.FindElement(By.Id(\"inside_frame\")).Click();\ndriver.SwitchTo().DefaultContent();\n\n// Handling Dropdowns\nSelectElement select = new SelectElement(driver.FindElement(By.Id(\"country\")));\nselect.SelectByText(\"United States\");";
+                break;
+
+            case "Page Object Model":
+                CurrentBody = @"<p><b>Page Object Model (POM)</b> is a design pattern that enhances test maintenance and reduces code duplication. Each web page is represented as a class, and the elements on that page are defined as variables within the class. If the UI changes, you only update the code in one place.</p>";
+                CurrentCode = "public class LoginPage\n{\n    private IWebDriver _driver;\n    public LoginPage(IWebDriver driver) => _driver = driver;\n\n    // Locators\n    private IWebElement UserField => _driver.FindElement(By.Id(\"username\"));\n    private IWebElement LoginBtn => _driver.FindElement(By.Id(\"submit\"));\n\n    // Actions\n    public void Login(string user) {\n        UserField.SendKeys(user);\n        LoginBtn.Click();\n    }\n}";
+                break;
+
+            case "Parallel Execution":
+                CurrentBody = @"<p>To reduce execution time, we run tests in <b>Parallel</b>. NUnit allows parallelization at the assembly, fixture, or method level. This is essential for modern CI/CD pipelines where feedback speed is critical.</p>";
+                CurrentCode = "// Add this to AssemblyInfo.cs or top of the namespace\n[assembly: Parallelizable(ParallelScope.Fixtures)]\n[assembly: LevelOfParallelism(4)]\n\nnamespace MyTests {\n    [TestFixture]\n    public class SmokeTests { ... }\n}";
+                break;
+
+            case "API + UI Combo":
+                CurrentBody = @"<p>Hybrid testing involves validating backend data (API) against the frontend (UI). We use <b>RestSharp</b> to make API calls, fetch the database state, and then verify if the same data is correctly displayed on the Selenium-driven web page.</p>";
+                CurrentCode = "using RestSharp;\n\n// API Step\nvar client = new RestClient(\"https://api.myapp.com\");\nvar request = new RestRequest(\"user/1\", Method.Get);\nvar response = client.Execute(request);\n\n// UI Step\ndriver.Navigate().GoToUrl(\"https://myapp.com/profile\");\nstring uiName = driver.FindElement(By.Id(\"name\")).Text;\nAssert.AreEqual(response.Data.Name, uiName);";
+                break;
+
+            default:
+                CurrentBody = "<p>The documentation for <b>" + topic + "</b> is currently being finalized. It will include detailed architectural patterns and C# implementation guides shortly.</p>";
+                CurrentCode = "// Content update in progress...";
+                break;
+        }
+    }
+}
