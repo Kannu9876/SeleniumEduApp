@@ -5,24 +5,30 @@
     @* --- TOP NAVIGATION BAR --- *@
     <nav class="navbar navbar-expand-md navbar-dark shadow-sm" style="background-color: rgb(5, 39, 103);">
         <div class="container-fluid px-4">
+            
             <a class="navbar-brand fw-bold d-flex align-items-center" href="">
                 <span class="fs-4">Selenium Master</span>
             </a>
             
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse">
+            <button class="navbar-toggler" type="button" @onclick="ToggleNavMenu">
                 <span class="navbar-toggler-icon"></span>
             </button>
             
-            <div class="collapse navbar-collapse" id="navbarCollapse">
+            <div class="@NavMenuCssClass navbar-collapse" @onclick="CollapseNavMenu">
                 <ul class="navbar-nav ms-auto mb-2 mb-md-0">
+                    
                     <li class="nav-item">
-                        <a class="nav-link text-white fw-bold mx-2" href="about">About Us</a>
+                        <NavLink class="nav-link text-white fw-bold mx-2" href="" Match="NavLinkMatch.All">Home</NavLink>
+                    </li>
+                    
+                    <li class="nav-item">
+                        <NavLink class="nav-link text-white fw-bold mx-2" href="about">About Us</NavLink>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link text-white fw-bold mx-2" href="privacy">Privacy</a>
+                        <NavLink class="nav-link text-white fw-bold mx-2" href="privacy">Privacy</NavLink>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link text-white fw-bold mx-2" href="contact">Contact</a>
+                        <NavLink class="nav-link text-white fw-bold mx-2" href="contact">Contact</NavLink>
                     </li>
                 </ul>
             </div>
@@ -54,10 +60,30 @@
 
 </div>
 
+@* --- HAMBURGER MENU KA C# CODE --- *@
+@code {
+    private bool collapseNavMenu = true;
+
+    private string? NavMenuCssClass => collapseNavMenu ? "collapse" : null;
+
+    private void ToggleNavMenu()
+    {
+        collapseNavMenu = !collapseNavMenu;
+    }
+
+    private void CollapseNavMenu()
+    {
+        collapseNavMenu = true;
+    }
+}
+
 <style>
-    /* Ye CSS Blazor ke purane Sidebar design ko forcefully overwrite karega */
+    /* CSS for fixing layout */
     .sidebar { display: none !important; }
     .page { flex-direction: column !important; }
     main { display: flex; flex-direction: column; min-height: 100vh; }
     .content { flex: 1; }
+    
+    /* Hover effect for links */
+    .nav-link:hover { color: #f8f9fa !important; text-decoration: underline; }
 </style>
