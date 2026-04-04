@@ -1,5 +1,5 @@
 self.assetsManifest = {
-  "version": "YgSi92jH",
+  "version": "Shl3yZVd",
   "assets": [
     {
       "hash": "sha256-A8e6zZwhOqf7lDQqbbCYcAUv4wGE9aQxOo4WyYxR//0=",
@@ -146,12 +146,12 @@ self.assetsManifest = {
       "url": "_framework/Plugin.MtAdmob.gp5grqz77e.wasm"
     },
     {
-      "hash": "sha256-absR4A4hz4+pCwLm+o8fL+Y36D3m7XaT25snq6vuZzU=",
-      "url": "_framework/SeleniumEduApp.3dcwyjvjsm.wasm"
+      "hash": "sha256-PkFrd8izHhrDayqkYXEoImf4Wcfh0ZvK/6tMK3q797g=",
+      "url": "_framework/SeleniumEduApp.20ccrbn2gz.wasm"
     },
     {
-      "hash": "sha256-y7iGiYDy+3ZmXbn3PPunlk3l8y8pgBXAup+9JMj9vqM=",
-      "url": "_framework/SeleniumEduApp.n93pgvbl4r.pdb"
+      "hash": "sha256-TKfTB2hGyX+Z0kPGFHgVPVOFk+X7z2h7VTXjquYeWFY=",
+      "url": "_framework/SeleniumEduApp.sy1benfoln.pdb"
     },
     {
       "hash": "sha256-6NTPYNI6n3oO57u2wa7lzDTHPFL2ZX2i25hpw7j7xDU=",
@@ -846,16 +846,16 @@ self.assetsManifest = {
       "url": "_framework/dotnet.native.xanz2e7ksm.js"
     },
     {
+      "hash": "sha256-NhT35ZRdDrUnzABAass9IdoqZmAyXugLOhj1Oq/2VAc=",
+      "url": "_framework/dotnet.q37h2tk3vj.js"
+    },
+    {
       "hash": "sha256-1OEka2mzL1ydWBMKE7InT+DaMazRfs/Q3YtWISoeRRI=",
       "url": "_framework/dotnet.runtime.js.map"
     },
     {
       "hash": "sha256-yJvgPPUUvavYVmu9VD/fYtMcoEnLVaB0Cr7JAE29btw=",
       "url": "_framework/dotnet.runtime.o0qy896u8v.js"
-    },
-    {
-      "hash": "sha256-ups3nsZXz4UzcYZcPumtqxB6e69g/CL1iuvF201Cfc4=",
-      "url": "_framework/dotnet.ub5vv8hzn2.js"
     },
     {
       "hash": "sha256-SZLtQnRc0JkwqHab0VUVP7T3uBPSeYzxzDnpxPpUnHk=",
@@ -882,19 +882,23 @@ self.assetsManifest = {
       "url": "appsettings.json"
     },
     {
-      "hash": "sha256-CsChHlHUYGbuIEdR+5X9lxWNazWkgwxEsDPWRPQmRpQ=",
+      "hash": "sha256-AdQFf/tKBkps+Fh+kt2/C/jQv8nv27XMT/0tEC0L90g=",
       "url": "css/app.css"
     },
     {
-      "hash": "sha256-4mWsDy3aHl36ZbGt8zByK7Pvd4kRUoNgTYzRnwmPHwg=",
+      "hash": "sha256-OeUfYYqggKQTC40GpaRNZPZhKqeEYznKGkPbBJh5/jo=",
       "url": "favicon.png"
     },
     {
-      "hash": "sha256-DbpQaq68ZSb5IoPosBErM1QWBfsbTxpJqhU0REi6wP4=",
+      "hash": "sha256-OeUfYYqggKQTC40GpaRNZPZhKqeEYznKGkPbBJh5/jo=",
       "url": "icon-192.png"
     },
     {
-      "hash": "sha256-qMW/2SOPJCiUS2SiSMzTBmiSe4QGXWb2bicfARpaXE0=",
+      "hash": "sha256-OeUfYYqggKQTC40GpaRNZPZhKqeEYznKGkPbBJh5/jo=",
+      "url": "images/logo.png"
+    },
+    {
+      "hash": "sha256-QuVZlOMIT/6uQKfoXOtYuYsacrsm+JCWZscOMz/Q+MM=",
       "url": "index.html"
     },
     {

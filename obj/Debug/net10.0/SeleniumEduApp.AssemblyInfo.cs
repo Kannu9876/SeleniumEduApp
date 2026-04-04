@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("SeleniumEduApp")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+5556b4e1989cc0b4787cf979f07f5c5929ed5a1b")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+bb5fa17084efefce392628858654273b27e94d12")]
 [assembly: System.Reflection.AssemblyProductAttribute("SeleniumEduApp")]
 [assembly: System.Reflection.AssemblyTitleAttribute("SeleniumEduApp")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

@@ -2,49 +2,53 @@
 @using SeleniumEduApp.Models
 @inject ILocalStorageService LocalStorage
 
-<div class="top-row ps-3 navbar navbar-dark">
+<div class="top-row navbar navbar-dark shadow-sm px-3" style="background-color: #0F172A; border-bottom: 1px solid #1E293B;">
     <div class="container-fluid">
-        <a class="navbar-brand" href="">Selenium C# Master</a>
-        <button title="Navigation menu" class="navbar-toggler" @onclick="ToggleNavMenu">
+        <a class="navbar-brand d-flex align-items-center" href="">
+            <img src="images/logo.png" style="width: 28px; border-radius: 5px; margin-right: 8px;" alt="Logo" />
+            <span style="font-weight: 600; letter-spacing: 0.5px;">Selenium Master</span>
+        </a>
+        <button title="Navigation menu" class="navbar-toggler" style="border: none;" @onclick="ToggleNavMenu">
             <span class="navbar-toggler-icon"></span>
         </button>
     </div>
 </div>
-
-<div class="px-3 py-3 text-center" style="background-color: #3b1f9b; border-bottom: 2px solid #2a1572;">
-    <div class="badge bg-warning text-dark fs-6 w-100 mb-2 py-2 shadow-sm">
-        <span class="bi bi-coin"></span> @UserStats.DailyTokens Tokens Left
-    </div>
-    <div class="badge bg-danger fs-6 w-100 py-2 shadow-sm">
-        <span class="bi bi-fire"></span> @UserStats.LearningStreak Day Streak
-    </div>
+<div class="@NavMenuCssClass flex-column" style="background-color: #0F172A; min-height: 100vh; z-index: 10;" @onclick="ToggleNavMenu">
+    
+    <div class="px-3 py-3 text-center" style="background-color: #1E293B; border-bottom: 1px solid #334155;">
+        <div class="badge text-dark fs-6 w-100 mb-2 py-2 shadow-sm" style="background-color: #FBBF24;">
+            <span class="bi bi-coin"></span> @UserStats.DailyTokens Tokens Left
+        </div>
+        <div class="badge fs-6 w-100 py-2 shadow-sm" style="background-color: #EF4444;">
+            <span class="bi bi-fire"></span> @UserStats.LearningStreak Day Streak
+        </div>
 </div>
+   
 
-<div class="@NavMenuCssClass nav-scrollable" @onclick="ToggleNavMenu">
-    <nav class="flex-column mt-2">
-        <div class="nav-item px-3">
-            <NavLink class="nav-link" href="" Match="NavLinkMatch.All">
-                <span class="bi bi-house-door-fill-nav-menu" aria-hidden="true"></span> Home
+    <nav class="flex-column mt-3 nav-scrollable">
+        <div class="nav-item px-3 py-2">
+            <NavLink class="nav-link text-white fs-5" href="" Match="NavLinkMatch.All">
+                <span class="bi bi-house-door-fill me-2" aria-hidden="true"></span> Home
             </NavLink>
         </div>
-        <div class="nav-item px-3">
-            <NavLink class="nav-link" href="learn">
-                <span class="bi bi-book-fill-nav-menu" aria-hidden="true"></span> AI Tutor
+        <div class="nav-item px-3 py-2">
+            <NavLink class="nav-link text-white fs-5" href="learn">
+                <span class="bi bi-book-fill me-2" aria-hidden="true"></span> AI Tutor
             </NavLink>
         </div>
-        <div class="nav-item px-3">
-            <NavLink class="nav-link" href="debug">
-                <span class="bi bi-bug-fill-nav-menu" aria-hidden="true"></span> Debug Bot
+        <div class="nav-item px-3 py-2">
+            <NavLink class="nav-link text-white fs-5" href="debug">
+                <span class="bi bi-bug-fill me-2" aria-hidden="true"></span> Debug Bot
             </NavLink>
         </div>
-        <div class="nav-item px-3">
-            <NavLink class="nav-link" href="interview">
-                <span class="bi bi-person-lines-fill-nav-menu" aria-hidden="true"></span> Interview Prep
+        <div class="nav-item px-3 py-2">
+            <NavLink class="nav-link text-white fs-5" href="interview">
+                <span class="bi bi-person-lines-fill me-2" aria-hidden="true"></span> Interview Prep
             </NavLink>
         </div>
-        <div class="nav-item px-3">
-            <NavLink class="nav-link" href="projects">
-                <span class="bi bi-briefcase-fill-nav-menu" aria-hidden="true"></span> Projects
+        <div class="nav-item px-3 py-2">
+            <NavLink class="nav-link text-white fs-5" href="projects">
+                <span class="bi bi-briefcase-fill me-2" aria-hidden="true"></span> Projects
             </NavLink>
         </div>
     </nav>
@@ -54,7 +58,6 @@
     private bool collapseNavMenu = true;
     private string? NavMenuCssClass => collapseNavMenu ? "collapse" : null;
     
-    // User data hold karne ke liye variable
     private UserProfile UserStats = new UserProfile();
 
     private void ToggleNavMenu()
@@ -62,22 +65,18 @@
         collapseNavMenu = !collapseNavMenu;
     }
 
-    // Jab app load hoti hai, toh yeh function automatically chalta hai
     protected override async Task OnInitializedAsync()
     {
-        // 1. Browser ki memory (Local Storage) se profile dhoondho
         var savedProfile = await LocalStorage.GetItemAsync<UserProfile>("userProfile");
         
         if (savedProfile != null)
         {
-            // Agar purana user hai, toh uska data load karo
             UserStats = savedProfile;
-            UserStats.CheckAndResetDailyTokens(); // Check karo ki naya din hai kya
-            await LocalStorage.SetItemAsync("userProfile", UserStats); // Data wapas save karo
+            UserStats.CheckAndResetDailyTokens(); 
+            await LocalStorage.SetItemAsync("userProfile", UserStats); 
         }
         else
         {
-            // Agar ekdum naya user hai, toh naya data save karo
             await LocalStorage.SetItemAsync("userProfile", UserStats);
         }
     }
