@@ -1,47 +1,63 @@
 ﻿@inherits LayoutComponentBase
-<div class="page">
-    <div class="sidebar">
-        <NavMenu />
-    </div>
 
-    <main>
-        
-        <div class="top-row px-4 d-flex justify-content-end align-items-center shadow-sm bg-white">
-            <a href="about" class="text-decoration-none text-dark fw-bold mx-3">About Us</a>
-            <a href="privacy" class="text-decoration-none text-dark fw-bold mx-3">Privacy</a>
-            <a href="contact" class="text-decoration-none text-dark fw-bold mx-3">Contact</a>
+<div class="page d-flex flex-column min-vh-100">
+
+    @* --- TOP NAVIGATION BAR --- *@
+    <nav class="navbar navbar-expand-md navbar-dark shadow-sm" style="background-color: rgb(5, 39, 103);">
+        <div class="container-fluid px-4">
+            <a class="navbar-brand fw-bold d-flex align-items-center" href="">
+                <span class="fs-4">Selenium Master</span>
+            </a>
+            
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            
+            <div class="collapse navbar-collapse" id="navbarCollapse">
+                <ul class="navbar-nav ms-auto mb-2 mb-md-0">
+                    <li class="nav-item">
+                        <a class="nav-link text-white fw-bold mx-2" href="about">About Us</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link text-white fw-bold mx-2" href="privacy">Privacy</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link text-white fw-bold mx-2" href="contact">Contact</a>
+                    </li>
+                </ul>
+            </div>
         </div>
-        <article class="content px-4 py-3">
+    </nav>
+
+    @* --- MAIN CONTENT --- *@
+    <main class="flex-grow-1">
+        <article class="content px-4 py-4">
             @Body
         </article>
-        <footer class="border-top footer text-muted mt-5 bg-light">
-    <div class="container py-4">
-        <div class="row">
-            <div class="col-md-6 text-center text-md-start">
-                &copy; 2026 - Selenium Master - <span class="text-dark font-weight-bold">seleniumeduapp.com</span>
-            </div>
-            <div class="col-md-6 text-center text-md-end">
-                <a href="about" class="text-decoration-none mx-2 text-secondary">About</a>
-                <a href="privacy" class="text-decoration-none mx-2 text-secondary">Privacy Policy</a>
-                <a href="contact" class="text-decoration-none mx-2 text-secondary">Contact Us</a>
+    </main>
+
+    @* --- FOOTER --- *@
+    <footer class="border-top footer text-muted bg-light mt-auto">
+        <div class="container-fluid py-3">
+            <div class="row align-items-center">
+                <div class="col-md-6 text-center text-md-start">
+                    &copy; 2026 - <b>seleniumeduapp.com</b>
+                </div>
+                <div class="col-md-6 text-center text-md-end">
+                    <a href="about" class="text-decoration-none mx-2">About</a>
+                    <a href="privacy" class="text-decoration-none mx-2">Privacy Policy</a>
+                    <a href="contact" class="text-decoration-none mx-2">Contact Us</a>
+                </div>
             </div>
         </div>
-    </div>
-</footer>
+    </footer>
+
+</div>
 
 <style>
-    /* Taaki footer page ke ekdum niche rahe */
-    .page {
-        display: flex;
-        flex-direction: column;
-        min-height: 100vh;
-    }
-    main {
-        flex: 1;
-    }
-    footer {
-        width: 100%;
-    }
+    /* Ye CSS Blazor ke purane Sidebar design ko forcefully overwrite karega */
+    .sidebar { display: none !important; }
+    .page { flex-direction: column !important; }
+    main { display: flex; flex-direction: column; min-height: 100vh; }
+    .content { flex: 1; }
 </style>
-    </main>
-</div>
