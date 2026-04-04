@@ -1,16 +1,24 @@
 ﻿@page "/"
 
 <PageTitle>Home - Selenium C# Master</PageTitle>
-<GoogleAd />
-<div class="container text-center mt-5">
+
+@* <GoogleAd /> *@ <div class="container text-center mt-5 mb-5">
     <h1 class="display-4 fw-bold" style="color: #512BD4;">Welcome to Selenium C# Master 🚀</h1>
     <p class="lead mt-3">Your AI-Powered Tutor & Debugging Assistant</p>
     
     <hr class="my-4" />
     
-    <p class="mb-4">Master web automation with hands-on practice, AI mock interviews, and real-time error solving.</p>
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <p class="mb-4 fs-5">
+                Master web automation using **C# and Selenium** with our interactive AI-driven platform. 
+                Whether you are a beginner or looking to solve complex automation errors, our tools 
+                are designed to provide real-time solutions and hands-on practice.
+            </p>
+        </div>
+    </div>
     
-    <div class="d-flex justify-content-center gap-3">
+    <div class="d-flex justify-content-center gap-3 mt-3">
         <a href="/learn" class="btn btn-primary btn-lg px-4" style="background-color: #512BD4; border: none;">
             Start Learning
         </a>
@@ -19,6 +27,12 @@
         </a>
     </div>
 </div>
-<AdBanner Title="Grab Our PDF Guide" 
+
+<div class="container my-5 text-start border-top pt-4">
+    <h3>Why Learn Selenium with C#?</h3>
+    <p>C# provides a robust environment for automation testers. With our AI Debug Bot, you can solve common exceptions like NoSuchElementException or TimeoutException in seconds.</p>
+</div>
+
+@* <AdBanner Title="Grab Our PDF Guide" 
           Description="Complete C# Locators Cheat Sheet for free." 
-          Link="https://example.com" />
+          Link="/learn" /> *@
