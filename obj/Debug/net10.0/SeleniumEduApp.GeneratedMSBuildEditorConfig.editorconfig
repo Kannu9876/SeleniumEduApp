@@ -36,6 +36,18 @@ build_metadata.AdditionalFiles.CssScope =
 build_metadata.AdditionalFiles.TargetPath = TGF5b3V0L0FkQmFubmVyLnJhem9y
 build_metadata.AdditionalFiles.CssScope = 
 
+[/workspaces/SeleniumEduApp/Layout/GoogleAd.razor]
+build_metadata.AdditionalFiles.TargetPath = TGF5b3V0L0dvb2dsZUFkLnJhem9y
+build_metadata.AdditionalFiles.CssScope = 
+
+[/workspaces/SeleniumEduApp/Layout/MainLayout.razor]
+build_metadata.AdditionalFiles.TargetPath = TGF5b3V0L01haW5MYXlvdXQucmF6b3I=
+build_metadata.AdditionalFiles.CssScope = 
+
+[/workspaces/SeleniumEduApp/Layout/NavMenu.razor]
+build_metadata.AdditionalFiles.TargetPath = TGF5b3V0L05hdk1lbnUucmF6b3I=
+build_metadata.AdditionalFiles.CssScope = 
+
 [/workspaces/SeleniumEduApp/Pages/Counter.razor]
 build_metadata.AdditionalFiles.TargetPath = UGFnZXMvQ291bnRlci5yYXpvcg==
 build_metadata.AdditionalFiles.CssScope = 
@@ -75,11 +87,3 @@ build_metadata.AdditionalFiles.CssScope =
 [/workspaces/SeleniumEduApp/_Imports.razor]
 build_metadata.AdditionalFiles.TargetPath = X0ltcG9ydHMucmF6b3I=
 build_metadata.AdditionalFiles.CssScope = 
-
-[/workspaces/SeleniumEduApp/Layout/MainLayout.razor]
-build_metadata.AdditionalFiles.TargetPath = TGF5b3V0L01haW5MYXlvdXQucmF6b3I=
-build_metadata.AdditionalFiles.CssScope = b-894ilrkryl
-
-[/workspaces/SeleniumEduApp/Layout/NavMenu.razor]
-build_metadata.AdditionalFiles.TargetPath = TGF5b3V0L05hdk1lbnUucmF6b3I=
-build_metadata.AdditionalFiles.CssScope = b-75xi8sbahd

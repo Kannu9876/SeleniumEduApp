@@ -5,7 +5,7 @@ var e=!1;const t=async()=>WebAssembly.validate(new Uint8Array([0,97,115,109,1,0,
   "mainAssemblyName": "SeleniumEduApp",
   "applicationEnvironment": "Development",
   "resources": {
-    "hash": "sha256-7ZFMh1dVRSlo/EChpNyGEdSkn3uvtsfVs39BrHFEMZo=",
+    "hash": "sha256-GUbCJNSqtwgvXug8WYIcRiVShCL0fxQ3We2GN5RGYIc=",
     "jsModuleNative": [
       {
         "name": "dotnet.native.xanz2e7ksm.js"
@@ -56,6 +56,11 @@ var e=!1;const t=async()=>WebAssembly.validate(new Uint8Array([0,97,115,109,1,0,
         "virtualPath": "Blazored.LocalStorage.wasm",
         "name": "Blazored.LocalStorage.4u0gbfq4cq.wasm",
         "integrity": "sha256-xHBGFCMjDjvvTwtMvgaMBNmQk9JdVhGmws2/GMZlxrI="
+      },
+      {
+        "virtualPath": "Plugin.MtAdmob.wasm",
+        "name": "Plugin.MtAdmob.gp5grqz77e.wasm",
+        "integrity": "sha256-HOwpN6ScHALu64De8gH5pGvOeN16Wah8dvsBlc3Jc08="
       },
       {
         "virtualPath": "Microsoft.AspNetCore.Authorization.wasm",
@@ -191,6 +196,31 @@ var e=!1;const t=async()=>WebAssembly.validate(new Uint8Array([0,97,115,109,1,0,
         "virtualPath": "Microsoft.JSInterop.WebAssembly.wasm",
         "name": "Microsoft.JSInterop.WebAssembly.9udcqny0aq.wasm",
         "integrity": "sha256-EQfaQose2do/RGDJFP6YWTTeOWA2gufnJurZZZh2XLU="
+      },
+      {
+        "virtualPath": "BouncyCastle.Crypto.wasm",
+        "name": "BouncyCastle.Crypto.1h6k4agdvq.wasm",
+        "integrity": "sha256-xYmwAicD5I0LNHBUmdOnj2a+F/55ARnn8D72hAslxNE="
+      },
+      {
+        "virtualPath": "Xamarin.Essentials.wasm",
+        "name": "Xamarin.Essentials.6iz74rbcd9.wasm",
+        "integrity": "sha256-fi8tP+KOGtBKVJp2RrkSuveaaIAGuX4cXpq1qHiHjtA="
+      },
+      {
+        "virtualPath": "Xamarin.Forms.Core.wasm",
+        "name": "Xamarin.Forms.Core.4701axh24v.wasm",
+        "integrity": "sha256-wErzHc9HyCeXHAp21P8dMS9XVl7Sv/zNUTPFfdgipM8="
+      },
+      {
+        "virtualPath": "Xamarin.Forms.Platform.wasm",
+        "name": "Xamarin.Forms.Platform.bhidd3jyet.wasm",
+        "integrity": "sha256-z2crhwELSDpQHleU2bQNLZ5A+76oyhuAPq6JFuYx4vY="
+      },
+      {
+        "virtualPath": "Xamarin.Forms.Xaml.wasm",
+        "name": "Xamarin.Forms.Xaml.6gfd45vyd7.wasm",
+        "integrity": "sha256-drdlQjFQ6bYLupBqbc8OYlsoy9FrMR+OUOun6KO2I84="
       },
       {
         "virtualPath": "Microsoft.CSharp.wasm",
@@ -1044,15 +1074,15 @@ var e=!1;const t=async()=>WebAssembly.validate(new Uint8Array([0,97,115,109,1,0,
       },
       {
         "virtualPath": "SeleniumEduApp.wasm",
-        "name": "SeleniumEduApp.t2tnn43ahy.wasm",
-        "integrity": "sha256-9al97VwA35k8o9eDl6jPLU/mJ8whdIRca1/m9bCAylI="
+        "name": "SeleniumEduApp.3dcwyjvjsm.wasm",
+        "integrity": "sha256-absR4A4hz4+pCwLm+o8fL+Y36D3m7XaT25snq6vuZzU="
       }
     ],
     "pdb": [
       {
         "virtualPath": "SeleniumEduApp.pdb",
-        "name": "SeleniumEduApp.u4yc3ayb71.pdb",
-        "integrity": "sha256-Mp33R9IFcwPuPbzlL+nor+hxZpy/wX1owdFaMSc0UyQ="
+        "name": "SeleniumEduApp.n93pgvbl4r.pdb",
+        "integrity": "sha256-y7iGiYDy+3ZmXbn3PPunlk3l8y8pgBXAup+9JMj9vqM="
       }
     ],
     "libraryInitializers": [

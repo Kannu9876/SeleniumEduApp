@@ -1,0 +1,23 @@
+@inject IJSRuntime JSRuntime
+
+<div class="ad-container text-center my-3">
+    <small class="text-muted" style="font-size: 10px;">Advertisement</small>
+    <ins class="adsbygoogle"
+         style="display:block"
+         data-ad-client="ca-pub-YOUR_PUBLISHER_ID_HERE" 
+         data-ad-slot="YOUR_AD_SLOT_ID_HERE"
+         data-ad-format="auto"
+         data-full-width-responsive="true"></ins>
+</div>
+
+@code {
+    // Jab bhi ye component screen par aayega, ye JavaScript ko call karega ad load karne ke liye
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        if (firstRender)
+        {
+            // Apne helper function ko call karein
+            await JSRuntime.InvokeVoidAsync("loadGoogleAd");
+        }
+    }
+}
