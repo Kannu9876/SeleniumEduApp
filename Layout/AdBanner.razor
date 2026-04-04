@@ -1,0 +1,18 @@
+<div class="ad-card mt-4 shadow-sm">
+    <div class="d-flex align-items-center p-3 bg-white border rounded">
+        <div class="flex-shrink-0">
+            <span class="badge bg-warning text-dark">AD</span>
+        </div>
+        <div class="flex-grow-1 ms-3">
+            <h6 class="mb-0 fw-bold">@Title</h6>
+            <small class="text-muted">@Description</small>
+        </div>
+        <a href="@Link" target="_blank" class="btn btn-sm btn-primary rounded-pill">Visit</a>
+    </div>
+</div>
+
+@code {
+    [Parameter] public string Title { get; set; } = "Master Selenium C# Frameworks";
+    [Parameter] public string Description { get; set; } = "Get 50% off on advanced automation bootcamp!";
+    [Parameter] public string Link { get; set; } = "#";
+}

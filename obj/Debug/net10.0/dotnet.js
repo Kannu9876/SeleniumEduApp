@@ -5,7 +5,7 @@ var e=!1;const t=async()=>WebAssembly.validate(new Uint8Array([0,97,115,109,1,0,
   "mainAssemblyName": "SeleniumEduApp",
   "applicationEnvironment": "Development",
   "resources": {
-    "hash": "sha256-aP745UqmwHHzpgmGDGCBx5iMxezCYydthngjv19jS1Y=",
+    "hash": "sha256-7ZFMh1dVRSlo/EChpNyGEdSkn3uvtsfVs39BrHFEMZo=",
     "jsModuleNative": [
       {
         "name": "dotnet.native.xanz2e7ksm.js"
@@ -1044,15 +1044,15 @@ var e=!1;const t=async()=>WebAssembly.validate(new Uint8Array([0,97,115,109,1,0,
       },
       {
         "virtualPath": "SeleniumEduApp.wasm",
-        "name": "SeleniumEduApp.pkdj9h3jrp.wasm",
-        "integrity": "sha256-eUh0LZtV+IBX9mFXKkKzIAsybQUUj4cjmYfeWtEYzxA="
+        "name": "SeleniumEduApp.t2tnn43ahy.wasm",
+        "integrity": "sha256-9al97VwA35k8o9eDl6jPLU/mJ8whdIRca1/m9bCAylI="
       }
     ],
     "pdb": [
       {
         "virtualPath": "SeleniumEduApp.pdb",
-        "name": "SeleniumEduApp.j49elubapy.pdb",
-        "integrity": "sha256-TT2HpgKOKpvzi6bMAYAsJ+Hv6DvR442MFggnELmAEko="
+        "name": "SeleniumEduApp.u4yc3ayb71.pdb",
+        "integrity": "sha256-Mp33R9IFcwPuPbzlL+nor+hxZpy/wX1owdFaMSc0UyQ="
       }
     ],
     "libraryInitializers": [

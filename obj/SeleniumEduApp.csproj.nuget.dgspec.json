@@ -48,6 +48,10 @@
               "target": "Package",
               "version": "[4.4.0, )"
             },
+            "MarcTron.Admob": {
+              "target": "Package",
+              "version": "[2.4.0, )"
+            },
             "Microsoft.AspNetCore.App.Internal.Assets": {
               "suppressParent": "All",
               "target": "Package",

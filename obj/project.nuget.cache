@@ -1,10 +1,11 @@
 {
   "version": 2,
-  "dgSpecHash": "YOPq1vwVqYo=",
+  "dgSpecHash": "FK53j/TmBYI=",
   "success": true,
   "projectFilePath": "/workspaces/SeleniumEduApp/SeleniumEduApp.csproj",
   "expectedPackageFiles": [
     "/home/codespace/.nuget/packages/blazored.localstorage/4.4.0/blazored.localstorage.4.4.0.nupkg.sha512",
+    "/home/codespace/.nuget/packages/marctron.admob/2.4.0/marctron.admob.2.4.0.nupkg.sha512",
     "/home/codespace/.nuget/packages/microsoft.aspnetcore.app.internal.assets/10.0.0/microsoft.aspnetcore.app.internal.assets.10.0.0.nupkg.sha512",
     "/home/codespace/.nuget/packages/microsoft.aspnetcore.authorization/10.0.0/microsoft.aspnetcore.authorization.10.0.0.nupkg.sha512",
     "/home/codespace/.nuget/packages/microsoft.aspnetcore.components/10.0.0/microsoft.aspnetcore.components.10.0.0.nupkg.sha512",
@@ -37,6 +38,10 @@
     "/home/codespace/.nuget/packages/microsoft.jsinterop.webassembly/10.0.0/microsoft.jsinterop.webassembly.10.0.0.nupkg.sha512",
     "/home/codespace/.nuget/packages/microsoft.net.illink.tasks/10.0.0/microsoft.net.illink.tasks.10.0.0.nupkg.sha512",
     "/home/codespace/.nuget/packages/microsoft.net.sdk.webassembly.pack/10.0.0/microsoft.net.sdk.webassembly.pack.10.0.0.nupkg.sha512",
+    "/home/codespace/.nuget/packages/portable.bouncycastle/1.9.0/portable.bouncycastle.1.9.0.nupkg.sha512",
+    "/home/codespace/.nuget/packages/xamarin.build.download/0.11.4/xamarin.build.download.0.11.4.nupkg.sha512",
+    "/home/codespace/.nuget/packages/xamarin.essentials/1.8.1/xamarin.essentials.1.8.1.nupkg.sha512",
+    "/home/codespace/.nuget/packages/xamarin.forms/5.0.0.2622/xamarin.forms.5.0.0.2622.nupkg.sha512",
     "/home/codespace/.nuget/packages/microsoft.netcore.app.runtime.mono.browser-wasm/10.0.0/microsoft.netcore.app.runtime.mono.browser-wasm.10.0.0.nupkg.sha512"
   ],
   "logs": []

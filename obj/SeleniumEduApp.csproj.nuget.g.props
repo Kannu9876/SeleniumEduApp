@@ -13,6 +13,8 @@
     <SourceRoot Include="/home/codespace/.nuget/packages/" />
   </ItemGroup>
   <ImportGroup Condition=" '$(ExcludeRestorePackageImports)' != 'true' ">
+    <Import Project="$(NuGetPackageRoot)xamarin.forms/5.0.0.2622/buildTransitive/Xamarin.Forms.props" Condition="Exists('$(NuGetPackageRoot)xamarin.forms/5.0.0.2622/buildTransitive/Xamarin.Forms.props')" />
+    <Import Project="$(NuGetPackageRoot)xamarin.build.download/0.11.4/buildTransitive/Xamarin.Build.Download.props" Condition="Exists('$(NuGetPackageRoot)xamarin.build.download/0.11.4/buildTransitive/Xamarin.Build.Download.props')" />
     <Import Project="$(NuGetPackageRoot)microsoft.net.sdk.webassembly.pack/10.0.0/build/Microsoft.NET.Sdk.WebAssembly.Pack.props" Condition="Exists('$(NuGetPackageRoot)microsoft.net.sdk.webassembly.pack/10.0.0/build/Microsoft.NET.Sdk.WebAssembly.Pack.props')" />
     <Import Project="$(NuGetPackageRoot)microsoft.net.illink.tasks/10.0.0/build/Microsoft.NET.ILLink.Tasks.props" Condition="Exists('$(NuGetPackageRoot)microsoft.net.illink.tasks/10.0.0/build/Microsoft.NET.ILLink.Tasks.props')" />
     <Import Project="$(NuGetPackageRoot)microsoft.dotnet.hotreload.webassembly.browser/10.0.100/buildTransitive/Microsoft.DotNet.HotReload.WebAssembly.Browser.props" Condition="Exists('$(NuGetPackageRoot)microsoft.dotnet.hotreload.webassembly.browser/10.0.100/buildTransitive/Microsoft.DotNet.HotReload.WebAssembly.Browser.props')" />
