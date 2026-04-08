@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="google-site-verification" content="XKqB3tugZ5aTO5rRAfRATGl8XENbDVk4DKse2mokvjM" />
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6103962055340349"
+     crossorigin="anonymous"></script>
+    <title>SeleniumEduApp</title>
+    <base href="/" />
+    <link rel="preload" id="webassembly" />
+    <link rel="stylesheet" href="lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="css/app.css" />
+    <link rel="icon" type="image/png" href="favicon.png" />
+<link rel="apple-touch-icon" sizes="192x192" href="icon-192.png" />
+    <link href="SeleniumEduApp.styles.css" rel="stylesheet" />
+    <script type="importmap"></script>
+
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-YOUR_ID" crossorigin="anonymous"></script>
+    <script>
+      (adsbygoogle = window.adsbygoogle || []).push({
+        google_ad_client: "ca-pub-YOUR_ID",
+        enable_page_level_ads: true,
+        overlays: {bottom: true} // Forces "Anchor Ad" at the bottom
+      });
+    </script>
+</head>
+
+<body>
+    <div id="app">
+        <svg class="loading-progress">
+            <circle r="40%" cx="50%" cy="50%" />
+            <circle r="40%" cx="50%" cy="50%" />
+        </svg>
+        <div class="loading-progress-text"></div>
+    </div>
+
+    <div id="blazor-error-ui">
+        An unhandled error has occurred.
+        <a href="." class="reload">Reload</a>
+        <span class="dismiss">🗙</span>
+    </div>
+    
+    <script src="_framework/blazor.webassembly#[.{fingerprint}].js"></script>
+
+    <script>navigator.serviceWorker.register('service-worker.js');</script>
+    <script>
+    window.loadGoogleAd = function () {
+        try {
+            (adsbygoogle = window.adsbygoogle || []).push({});
+        } catch (ex) {
+            console.error("AdSense Error: ", ex);
+        }
+    }
+</script>
+</body>
+
+</html>
