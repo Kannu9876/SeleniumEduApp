@@ -32,13 +32,11 @@
     </script>
     
     <base href="/" />
-    <link rel="preload" id="webassembly" />
     <link rel="stylesheet" href="lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="css/app.css" />
     <link rel="icon" type="image/png" href="favicon.png" />
     <link rel="apple-touch-icon" sizes="192x192" href="icon-192.png" />
     <link href="SeleniumEduApp.styles.css" rel="stylesheet" />
-    <script type="importmap"></script>
 </head>
 
 <body>
@@ -56,7 +54,8 @@
         <span class="dismiss">🗙</span>
     </div>
     
-    <script src="_framework/blazor.webassembly#[.{fingerprint}].js"></script>
+    <script src="_framework/blazor.webassembly.js"></script>
+    <script src="lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script>navigator.serviceWorker.register('service-worker.js');</script>
     
     <script>
