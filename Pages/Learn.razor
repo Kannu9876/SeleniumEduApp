@@ -2,6 +2,8 @@
 <GoogleAd />
 <PageTitle>Learn Selenium C# - Complete Automation Course | SeleniumEduApp</PageTitle>
 
+@if (string.IsNullOrEmpty(CurrentTitle))
+{
 <!-- Hero Header -->
 <div class="container-fluid px-0">
     <div class="text-center py-4 px-3" style="background: linear-gradient(135deg, #512BD4 0%, #7B4FE0 100%);">
@@ -17,9 +19,10 @@
         </div>
     </div>
 </div>
+}
 <div class="container-fluid mt-4">
     <div class="row">
-        <div class="col-md-3 border-end shadow-sm bg-light" style="height: 88vh; overflow-y: auto;">
+        <div class="col-md-3 border-end shadow-sm bg-light learn-sidebar">
             <h4 class="fw-bold text-primary p-3"><i class="bi bi-mortarboard-fill"></i> Syllabus Roadmap</h4>
             
             <div class="accordion accordion-flush">
@@ -97,7 +100,7 @@
             </div>
         </div>
 
-        <div class="col-md-9 p-5 bg-white" style="height: 88vh; overflow-y: auto;">
+        <div class="col-md-9 p-4 p-md-5 bg-white learn-content">
             @if (!string.IsNullOrEmpty(CurrentTitle))
             {
                 <div class="animate__animated animate__fadeIn">
@@ -117,39 +120,25 @@
             }
             else
             {
-               <div class="welcome-container animate__animated animate__fadeIn">
-        <div class="text-center py-4">
-            <i class="bi bi-mortarboard-fill text-primary" style="font-size: 5rem;"></i>
-            <h2 class="fw-bold mt-3" style="color: #512BD4;">Master Selenium C# Automation</h2>
-            <p class="text-muted fs-5">Interactive Roadmap for QA Automation Engineers</p>
-        </div>
-
-        <div class="row g-4 mt-2">
-            <div class="col-md-6">
-                <div class="p-4 border rounded shadow-sm h-100">
-                    <h5 class="fw-bold"><i class="bi bi-check-circle text-success"></i> Beginner to Expert</h5>
-                    <p class="small text-muted">Learn everything from C# Fundamentals to Dockerization and CI/CD Pipelines with Jenkins and Azure DevOps.</p>
-                </div>
-            </div>
-            <div class="col-md-6">
-                <div class="p-4 border rounded shadow-sm h-100">
-                    <h5 class="fw-bold"><i class="bi bi-code-slash text-primary"></i> Production-Ready Code</h5>
-                    <p class="small text-muted">Get access to real-world code snippets including Page Object Models (POM), Hybrid Frameworks, and API Validation.</p>
-                </div>
-            </div>
-        </div>
-
-        <div class="mt-5 p-3 bg-light rounded border-dashed text-center">
-            <p class="small text-secondary mb-0">
-                Topics Covered: <b>XPath Axes, Implicit/Explicit/Fluent Waits, NUnit Assertions, ExtentReports, Parallel Testing, Selenium Grid 4, Docker, and REST API Testing.</b>
-            </p>
-        </div>
-
-        <div class="alert alert-primary mt-4 text-center border-0 shadow-sm">
-            <i class="bi bi-arrow-left-circle-fill me-2"></i> 
-            <b>Start Learning:</b> Please select a module from the sidebar roadmap to read full documentation.
-        </div>
-    </div>
+               <div class="animate__animated animate__fadeIn">
+                    <div class="text-center py-5">
+                        <i class="bi bi-hand-index-thumb text-primary" style="font-size: 4rem;"></i>
+                        <h3 class="fw-bold mt-3" style="color: #512BD4;">Select a Module to Begin</h3>
+                        <p class="text-muted fs-6">Choose any topic from the sidebar to read full documentation with code examples.</p>
+                        <div class="row g-3 mt-4 text-start">
+                            <div class="col-12">
+                                <div class="p-3 bg-light rounded">
+                                    <h6 class="fw-bold mb-2">📌 Quick Start Guide:</h6>
+                                    <ul class="small text-muted mb-0">
+                                        <li><b>New to Selenium?</b> Start with Module 1 (C# Fundamentals) → then Module 2 (Selenium Basics)</li>
+                                        <li><b>Know C# already?</b> Jump to Module 5 (Handling Elements) or Module 9 (POM Pattern)</li>
+                                        <li><b>Experienced tester?</b> Go to Module 10 (Hybrid Architecture) or Module 15 (Jenkins)</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+               </div>
             }
         </div>
     </div>
@@ -158,6 +147,8 @@
           Description="Complete C# Locators Cheat Sheet for free." 
           Link="https://example.com" />*@
 
+@if (string.IsNullOrEmpty(CurrentTitle))
+{
 <!-- SEO Content Sections -->
 <div class="container my-5">
     <hr class="my-4" />
@@ -360,12 +351,30 @@
         </div>
     </div>
 </div>
+}
 <style>
+    .learn-sidebar { 
+        position: sticky; 
+        top: 0; 
+        max-height: 100vh; 
+        overflow-y: auto; 
+    }
     .list-group-item { border-left: 4px solid transparent; transition: 0.2s; font-size: 0.95rem; cursor: pointer; }
     .list-group-item:hover { background-color: #f0f4ff; border-left-color: #512BD4; padding-left: 20px; }
     .content-style p { font-size: 1.15rem; line-height: 1.8; margin-bottom: 1.5rem; }
     .content-style ul li { font-size: 1.1rem; margin-bottom: 0.8rem; }
     pre { font-family: 'Consolas', monospace; font-size: 1rem; line-height: 1.5; overflow-x: auto; white-space: pre-wrap; }
+
+    @@media (max-width: 767px) {
+        .learn-sidebar {
+            position: relative;
+            max-height: none;
+            overflow-y: visible;
+        }
+        .learn-content {
+            padding: 1.5rem !important;
+        }
+    }
 </style>
 
 @code {
