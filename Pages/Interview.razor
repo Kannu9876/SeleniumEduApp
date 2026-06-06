@@ -6,24 +6,54 @@
 @inject GeminiAssistantService AiBot
 @inject ILocalStorageService LocalStorage
 
-<PageTitle>AI Interview Prep</PageTitle>
-@* <GoogleAd /> *@
+<PageTitle>AI Interview Prep - Selenium C# Mock Interview Questions</PageTitle>
+<GoogleAd />
 <div class="container mt-4">
-    <div class="d-flex justify-content-between align-items-center mb-4">
-        <h2 class="fw-bold m-0" style="color: #512BD4;">
-            <span class="bi bi-person-badge"></span> Mock Interview Assistant
-        </h2>
-        <div class="d-flex gap-3 align-items-center">
-            <span class="text-muted fw-bold">Q: @(QuestionIndex + 1)/@Questions.Count</span>
-            <span class="badge bg-warning text-dark fs-6 shadow-sm">
-                🪙 @UserStats.DailyTokens Tokens Left
-            </span>
+    <!-- Hero Header -->
+    <div class="text-center mb-4 p-4 rounded-4" style="background: linear-gradient(135deg, #512BD4 0%, #7B4FE0 100%);">
+        <h1 class="fw-bold text-white mb-2">
+            <span class="bi bi-person-badge"></span> Selenium Mock Interview
+        </h1>
+        <p class="text-white-50 mb-3 fs-5">Practice 60 real interview questions asked at Microsoft, Amazon, TCS, Infosys & more</p>
+        <div class="d-flex justify-content-center gap-3 flex-wrap">
+            <span class="badge bg-white text-dark px-3 py-2">📝 60 Questions</span>
+            <span class="badge bg-white text-dark px-3 py-2">🤖 AI Evaluation</span>
+            <span class="badge bg-white text-dark px-3 py-2">📊 Score + Tips</span>
+            <span class="badge bg-white text-dark px-3 py-2">🎯 3 Difficulty Levels</span>
         </div>
+    </div>
+
+    <div class="d-flex justify-content-between align-items-center mb-3">
+        <div>
+            <span class="text-muted fw-bold">Question @(QuestionIndex + 1) of @FilteredQuestions.Count</span>
+        </div>
+        <span class="badge bg-warning text-dark fs-6 shadow-sm">
+            🪙 @UserStats.DailyTokens Tokens Left
+        </span>
+    </div>
+
+    <!-- Category Filter Buttons -->
+    <div class="d-flex flex-wrap gap-2 mb-4">
+        <button class="btn @(SelectedCategory == "All" ? "btn-primary" : "btn-outline-primary") rounded-pill px-3" @onclick='() => SetCategory("All")'>
+            All (@Questions.Count)
+        </button>
+        <button class="btn @(SelectedCategory == "Beginner" ? "btn-success" : "btn-outline-success") rounded-pill px-3" @onclick='() => SetCategory("Beginner")'>
+            🟢 Beginner (20)
+        </button>
+        <button class="btn @(SelectedCategory == "Intermediate" ? "btn-warning" : "btn-outline-warning") rounded-pill px-3" @onclick='() => SetCategory("Intermediate")'>
+            🟡 Intermediate (20)
+        </button>
+        <button class="btn @(SelectedCategory == "Advanced" ? "btn-danger" : "btn-outline-danger") rounded-pill px-3" @onclick='() => SetCategory("Advanced")'>
+            🔴 Advanced (20)
+        </button>
     </div>
 
     <div class="row">
         <div class="col-md-7">
             <div class="card shadow-sm border-0 mb-4">
+                <div class="card-header bg-white border-0 pt-3 px-4">
+                    <span class="badge @GetLevelBadgeClass()">@GetCurrentLevel()</span>
+                </div>
                 <div class="card-body p-4">
                     <div class="d-flex justify-content-between align-items-start mb-3">
                         <h5 class="fw-bold text-primary">Current Question:</h5>
@@ -106,6 +136,139 @@
     </div>
 </div>
 
+<!-- SEO Content Section -->
+<div class="container my-5 border-top pt-4">
+    <h2 class="fw-bold mb-3">Selenium C# Interview Preparation Guide</h2>
+    <p class="text-muted">Whether you are preparing for a fresher QA role or a senior SDET position, our mock interview tool covers every level. Practice with questions frequently asked at top companies and get AI-powered feedback on your answers.</p>
+    
+    <div class="row g-4 mt-3">
+        <div class="col-md-4">
+            <div class="card h-100 border-0 shadow-sm">
+                <div class="card-body">
+                    <h5 class="fw-bold text-success">🟢 Beginner Level</h5>
+                    <p class="text-muted small">For freshers and career switchers (0-1 year experience).</p>
+                    <ul class="small">
+                        <li>WebDriver architecture & browser setup</li>
+                        <li>Locator strategies (ID, XPath, CSS)</li>
+                        <li>Basic element interactions & assertions</li>
+                        <li>Browser navigation & cookie management</li>
+                        <li>Implicit waits & timeout configuration</li>
+                    </ul>
+                    <span class="badge bg-success">20 Questions</span>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card h-100 border-0 shadow-sm">
+                <div class="card-body">
+                    <h5 class="fw-bold text-warning">🟡 Intermediate Level</h5>
+                    <p class="text-muted small">For professionals with 1-3 years automation experience.</p>
+                    <ul class="small">
+                        <li>Page Object Model (POM) design</li>
+                        <li>Explicit & Fluent Wait strategies</li>
+                        <li>iFrames, alerts, multiple windows</li>
+                        <li>Actions class & JavaScript executor</li>
+                        <li>Exception handling & synchronization</li>
+                    </ul>
+                    <span class="badge bg-warning text-dark">20 Questions</span>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card h-100 border-0 shadow-sm">
+                <div class="card-body">
+                    <h5 class="fw-bold text-danger">🔴 Advanced Level</h5>
+                    <p class="text-muted small">For senior SDET & lead roles (3+ years experience).</p>
+                    <ul class="small">
+                        <li>Selenium Grid & Docker containers</li>
+                        <li>CI/CD pipeline integration</li>
+                        <li>Parallel & distributed execution</li>
+                        <li>Selenium 4 BiDi & Relative Locators</li>
+                        <li>Hybrid framework architecture</li>
+                    </ul>
+                    <span class="badge bg-danger">20 Questions</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Companies Section -->
+<div class="container my-5 border-top pt-4">
+    <h3 class="fw-bold mb-3">Companies That Ask These Questions</h3>
+    <p class="text-muted mb-4">Our question bank is curated from real interviews conducted at leading IT companies across India and globally.</p>
+    <div class="d-flex flex-wrap gap-2">
+        <span class="badge bg-light text-dark border px-3 py-2">Microsoft</span>
+        <span class="badge bg-light text-dark border px-3 py-2">Amazon</span>
+        <span class="badge bg-light text-dark border px-3 py-2">Infosys</span>
+        <span class="badge bg-light text-dark border px-3 py-2">TCS</span>
+        <span class="badge bg-light text-dark border px-3 py-2">Wipro</span>
+        <span class="badge bg-light text-dark border px-3 py-2">Capgemini</span>
+        <span class="badge bg-light text-dark border px-3 py-2">Accenture</span>
+        <span class="badge bg-light text-dark border px-3 py-2">Cognizant</span>
+        <span class="badge bg-light text-dark border px-3 py-2">HCL Tech</span>
+        <span class="badge bg-light text-dark border px-3 py-2">Tech Mahindra</span>
+        <span class="badge bg-light text-dark border px-3 py-2">Deloitte</span>
+        <span class="badge bg-light text-dark border px-3 py-2">IBM</span>
+    </div>
+</div>
+
+<div class="container my-5 border-top pt-4">
+    <h3 class="fw-bold mb-4">How to Use This Mock Interview Tool</h3>
+    <div class="row g-4">
+        <div class="col-md-3 text-center">
+            <div class="rounded-circle bg-primary text-white d-inline-flex align-items-center justify-content-center mb-3" style="width:70px;height:70px;font-size:1.5rem;">1</div>
+            <h6 class="fw-bold">Pick Your Level</h6>
+            <p class="small text-muted">Choose Beginner, Intermediate, or Advanced based on your experience and target role.</p>
+        </div>
+        <div class="col-md-3 text-center">
+            <div class="rounded-circle bg-primary text-white d-inline-flex align-items-center justify-content-center mb-3" style="width:70px;height:70px;font-size:1.5rem;">2</div>
+            <h6 class="fw-bold">Read the Question</h6>
+            <p class="small text-muted">Carefully understand what the interviewer is asking. Think before writing.</p>
+        </div>
+        <div class="col-md-3 text-center">
+            <div class="rounded-circle bg-primary text-white d-inline-flex align-items-center justify-content-center mb-3" style="width:70px;height:70px;font-size:1.5rem;">3</div>
+            <h6 class="fw-bold">Write Your Answer</h6>
+            <p class="small text-muted">Use the STAR method. Include code examples or technical details where relevant.</p>
+        </div>
+        <div class="col-md-3 text-center">
+            <div class="rounded-circle bg-primary text-white d-inline-flex align-items-center justify-content-center mb-3" style="width:70px;height:70px;font-size:1.5rem;">4</div>
+            <h6 class="fw-bold">Get AI Feedback</h6>
+            <p class="small text-muted">Receive a score out of 10, strengths, weaknesses, and a model answer from AI.</p>
+        </div>
+    </div>
+</div>
+
+<div class="container my-5 border-top pt-4">
+    <h3 class="fw-bold mb-3">Interview Tips for QA Automation Engineers</h3>
+    <div class="row g-4">
+        <div class="col-md-6">
+            <div class="card border-0 bg-light h-100 p-4">
+                <h5 class="fw-bold"><i class="bi bi-code-slash text-primary"></i> Technical Tips</h5>
+                <ul class="mb-0">
+                    <li class="mb-2"><b>Know your framework:</b> Be ready to explain POM, Hybrid, or BDD architecture with real examples.</li>
+                    <li class="mb-2"><b>Write code without IDE:</b> Practice writing Selenium code on paper or whiteboard.</li>
+                    <li class="mb-2"><b>Handle exceptions:</b> Explain your approach to StaleElement, Timeout, and NoSuchElement.</li>
+                    <li class="mb-2"><b>Stay updated:</b> Know Selenium 4 features — Relative Locators, BiDi, new Window API.</li>
+                    <li><b>CI/CD knowledge:</b> Explain how your tests integrate with Jenkins/GitHub Actions pipeline.</li>
+                </ul>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="card border-0 bg-light h-100 p-4">
+                <h5 class="fw-bold"><i class="bi bi-chat-dots text-success"></i> Behavioral Tips</h5>
+                <ul class="mb-0">
+                    <li class="mb-2"><b>Use STAR method:</b> Structure answers as Situation → Task → Action → Result.</li>
+                    <li class="mb-2"><b>Give real examples:</b> Reference actual projects where you solved automation challenges.</li>
+                    <li class="mb-2"><b>Show debugging skills:</b> Explain your approach, not just the final solution.</li>
+                    <li class="mb-2"><b>Ask questions back:</b> Show curiosity about their tech stack and testing strategy.</li>
+                    <li><b>Be honest:</b> If you don't know something, say so and explain how you'd learn it.</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+
 <style>
     .border-dashed { border: 2px dashed #dee2e6; border-radius: 15px; }
     .card { border-radius: 15px; }
@@ -119,32 +282,113 @@
     private string AIFeedback = "";
     private bool IsLoading = false;
     private bool IsFromCache = false;
+    private string SelectedCategory = "All";
     private UserProfile UserStats = new UserProfile();
 
     private List<string> Questions = new List<string> {
+        // 🟢 BEGINNER LEVEL (1-20)
+        "What is Selenium WebDriver and how does it differ from Selenium RC?",
+        "What are the different types of locators available in Selenium? Which one is the fastest?",
+        "Explain the difference between FindElement() and FindElements() in Selenium C#.",
+        "How do you launch a browser using Selenium WebDriver in C#?",
+        "What is the difference between driver.Close() and driver.Quit()?",
+        "How do you navigate to a URL using Selenium WebDriver?",
+        "What are Implicit Waits in Selenium? How do you set them up?",
+        "How do you handle browser back, forward, and refresh operations?",
+        "What is the difference between absolute XPath and relative XPath?",
+        "How do you verify if an element is displayed, enabled, or selected?",
+        "What is a CSS Selector? Give examples of common patterns.",
+        "How do you get the text of a web element in Selenium C#?",
+        "What is the difference between getText(), getAttribute(), and getCssValue()?",
+        "How do you handle checkboxes and radio buttons in Selenium?",
+        "How do you clear a text field before entering new text?",
+        "What is the purpose of driver.Manage().Window commands?",
+        "How do you get the current URL and page title using Selenium?",
+        "What are the prerequisites to run Selenium tests with C#?",
+        "How do you handle browser cookies in Selenium C#?",
+        "What is the role of ChromeDriver, GeckoDriver, and EdgeDriver?",
+
+        // 🟡 INTERMEDIATE LEVEL (21-40)
         "What is the difference between Implicit, Explicit, and Fluent Wait in Selenium?",
         "How do you handle dynamic WebElements whose IDs change on every refresh?",
         "Explain Page Object Model (POM) and how it helps in framework maintenance.",
         "How do you handle multiple windows or tabs in Selenium C#?",
         "What is IJavaScriptExecutor and when should you use it?",
-        "Explain the difference between FindElement() and FindElements().",
         "How do you perform Drag and Drop actions using Selenium?",
-        "What are the different types of locators in Selenium? Which one is the fastest?",
         "How do you handle Alerts/Pop-ups in Selenium C#?",
         "What is the use of Actions class in Selenium?",
-        "How do you handle a dropdown that is not a 'Select' tag?",
+        "How do you handle a dropdown that is not a standard 'Select' tag?",
         "How do you take a screenshot for a failed test case?",
-        "Explain Parallel Testing in Selenium and how to achieve it using NUnit/MSTest.",
         "How do you handle Web-based vs Window-based popups?",
         "What is the purpose of the DotNetSeleniumExtras PageObjects package?",
-        "How do you verify if an element is displayed, enabled, or selected?",
         "Explain the use of 'ExpectedConditions' in Selenium.",
         "How do you upload a file using Selenium C#?",
         "What is a StaleElementReferenceException and how do you fix it?",
-        "How do you handle Synchronization issues in your automation framework?"
+        "How do you handle Synchronization issues in your automation framework?",
+        "How do you scroll to an element using Selenium C#?",
+        "How do you handle iframes in Selenium? Explain SwitchTo().Frame().",
+        "What is the difference between Assert and Verify in testing?",
+        "How do you handle SSL certificate errors in Selenium?",
+
+        // 🔴 ADVANCED LEVEL (41-60)
+        "Explain Parallel Testing in Selenium and how to achieve it using NUnit.",
+        "How do you design a Hybrid Automation Framework from scratch?",
+        "What is Selenium Grid and how do you configure it for distributed testing?",
+        "How do you implement Data-Driven Testing using Excel or JSON in C#?",
+        "Explain the concept of Cross-Browser Testing and how to achieve it.",
+        "How do you integrate Selenium tests with CI/CD pipelines (Jenkins/Azure DevOps)?",
+        "What is the Builder Pattern and how is it used in test automation?",
+        "How do you handle Shadow DOM elements in Selenium 4?",
+        "Explain the BiDi protocol in Selenium 4 and its use cases.",
+        "How do you implement retry logic for flaky tests?",
+        "What are Selenium 4 Relative Locators? Give examples.",
+        "How do you capture and analyze browser console logs in Selenium?",
+        "How do you run Selenium tests inside Docker containers?",
+        "Explain ExtentReports integration with NUnit for test reporting.",
+        "How do you implement a custom wait strategy using FluentWait?",
+        "What is the difference between Headless and Headed browser testing?",
+        "How do you handle CAPTCHA in automation testing?",
+        "Explain the Repository Pattern in test automation frameworks.",
+        "How do you manage test data isolation in parallel test execution?",
+        "How do you implement API + UI validation in a single test framework?"
     };
 
-    private string CurrentQuestion => Questions[QuestionIndex];
+    private List<string> FilteredQuestions => SelectedCategory switch
+    {
+        "Beginner" => Questions.GetRange(0, 20),
+        "Intermediate" => Questions.GetRange(20, 20),
+        "Advanced" => Questions.GetRange(40, 20),
+        _ => Questions
+    };
+
+    private string CurrentQuestion => FilteredQuestions[QuestionIndex];
+
+    private string GetCurrentLevel()
+    {
+        if (SelectedCategory != "All") return SelectedCategory;
+        int globalIndex = Questions.IndexOf(CurrentQuestion);
+        if (globalIndex < 20) return "Beginner";
+        if (globalIndex < 40) return "Intermediate";
+        return "Advanced";
+    }
+
+    private string GetLevelBadgeClass()
+    {
+        return GetCurrentLevel() switch
+        {
+            "Beginner" => "bg-success",
+            "Intermediate" => "bg-warning text-dark",
+            "Advanced" => "bg-danger",
+            _ => "bg-secondary"
+        };
+    }
+
+    private void SetCategory(string category)
+    {
+        SelectedCategory = category;
+        QuestionIndex = 0;
+        ResetForm();
+    }
 
     protected override async Task OnInitializedAsync()
     {
@@ -159,7 +403,6 @@
         IsLoading = true;
         IsFromCache = false;
 
-        // Cache Key: Question + Answer (Unique)
         string cacheKey = "int_v2_" + (CurrentQuestion + UserAnswer).GetHashCode();
         var cachedData = await LocalStorage.GetItemAsync<string>(cacheKey);
 
@@ -188,7 +431,7 @@
 
     private void NextQuestion()
     {
-        if (QuestionIndex < Questions.Count - 1) QuestionIndex++;
+        if (QuestionIndex < FilteredQuestions.Count - 1) QuestionIndex++;
         else QuestionIndex = 0;
         ResetForm();
     }

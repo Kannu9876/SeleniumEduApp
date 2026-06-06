@@ -1,4 +1,6 @@
-﻿@inherits LayoutComponentBase
+@using SeleniumEduApp.Services
+@inject PageNavigationService NavService
+@implements IDisposable
 
 <div class="page d-flex flex-column min-vh-100">
 
@@ -6,7 +8,7 @@
     <nav class="navbar navbar-expand-md navbar-dark shadow-sm" style="background-color: rgb(5, 39, 103);">
         <div class="container-fluid px-4">
             
-            <a class="navbar-brand fw-bold d-flex align-items-center" href="">
+            <a class="navbar-brand fw-bold d-flex align-items-center" href="javascript:void(0)" @onclick='() => Navigate("home")'>
                 <span class="fs-4">Selenium Master</span>
             </a>
             
@@ -18,38 +20,38 @@
                 <ul class="navbar-nav ms-auto mb-2 mb-md-0 align-items-center">
                     
                     <li class="nav-item">
-                        <NavLink class="nav-link text-white fw-bold mx-2" href="" Match="NavLinkMatch.All">Home</NavLink>
+                        <a class="nav-link text-white fw-bold mx-2 @(NavService.CurrentPage == "home" ? "active" : "")" href="javascript:void(0)" @onclick='() => Navigate("home")'>Home</a>
                     </li>
                     
                     <li class="nav-item">
-                        <NavLink class="nav-link text-white fw-bold mx-2" href="learn">
+                        <a class="nav-link text-white fw-bold mx-2 @(NavService.CurrentPage == "learn" ? "active" : "")" href="javascript:void(0)" @onclick='() => Navigate("learn")'>
                             <span class="bi bi-book-fill me-1" aria-hidden="true"></span> AI Tutor
-                        </NavLink>
+                        </a>
                     </li>
                     <li class="nav-item">
-                        <NavLink class="nav-link text-white fw-bold mx-2" href="debug">
+                        <a class="nav-link text-white fw-bold mx-2 @(NavService.CurrentPage == "debug" ? "active" : "")" href="javascript:void(0)" @onclick='() => Navigate("debug")'>
                             <span class="bi bi-bug-fill me-1" aria-hidden="true"></span> Debug Bot
-                        </NavLink>
+                        </a>
                     </li>
                     <li class="nav-item">
-                        <NavLink class="nav-link text-white fw-bold mx-2" href="interview">
+                        <a class="nav-link text-white fw-bold mx-2 @(NavService.CurrentPage == "interview" ? "active" : "")" href="javascript:void(0)" @onclick='() => Navigate("interview")'>
                             <span class="bi bi-person-lines-fill me-1" aria-hidden="true"></span> Interview Prep
-                        </NavLink>
+                        </a>
                     </li>
                     <li class="nav-item">
-                        <NavLink class="nav-link text-white fw-bold mx-2" href="projects">
+                        <a class="nav-link text-white fw-bold mx-2 @(NavService.CurrentPage == "projects" ? "active" : "")" href="javascript:void(0)" @onclick='() => Navigate("projects")'>
                             <span class="bi bi-briefcase-fill me-1" aria-hidden="true"></span> Projects
-                        </NavLink>
+                        </a>
                     </li>
 
                     <li class="nav-item">
-                        <NavLink class="nav-link text-white fw-bold mx-2" href="about">About Us</NavLink>
+                        <a class="nav-link text-white fw-bold mx-2 @(NavService.CurrentPage == "about" ? "active" : "")" href="javascript:void(0)" @onclick='() => Navigate("about")'>About Us</a>
                     </li>
                     <li class="nav-item">
-                        <NavLink class="nav-link text-white fw-bold mx-2" href="privacy">Privacy</NavLink>
+                        <a class="nav-link text-white fw-bold mx-2 @(NavService.CurrentPage == "privacy" ? "active" : "")" href="javascript:void(0)" @onclick='() => Navigate("privacy")'>Privacy</a>
                     </li>
                     <li class="nav-item">
-                        <NavLink class="nav-link text-white fw-bold mx-2" href="contact">Contact</NavLink>
+                        <a class="nav-link text-white fw-bold mx-2 @(NavService.CurrentPage == "contact" ? "active" : "")" href="javascript:void(0)" @onclick='() => Navigate("contact")'>Contact</a>
                     </li>
 
                 </ul>
@@ -60,7 +62,42 @@
     @* --- MAIN CONTENT --- *@
     <main class="flex-grow-1">
         <article class="content px-4 py-4">
-            @Body
+            @switch (NavService.CurrentPage)
+            {
+                case "home":
+                    <SeleniumEduApp.Pages.Home />
+                    break;
+                case "learn":
+                    <SeleniumEduApp.Pages.Learn />
+                    break;
+                case "debug":
+                    <SeleniumEduApp.Pages.Debug />
+                    break;
+                case "interview":
+                    <SeleniumEduApp.Pages.Interview />
+                    break;
+                case "projects":
+                    <SeleniumEduApp.Pages.Projects />
+                    break;
+                case "about":
+                    <SeleniumEduApp.Pages.About />
+                    break;
+                case "privacy":
+                    <SeleniumEduApp.Pages.Privacy />
+                    break;
+                case "terms":
+                    <SeleniumEduApp.Pages.Terms />
+                    break;
+                case "disclaimer":
+                    <SeleniumEduApp.Pages.Disclaimer />
+                    break;
+                case "contact":
+                    <SeleniumEduApp.Pages.Contact />
+                    break;
+                default:
+                    <SeleniumEduApp.Pages.Home />
+                    break;
+            }
         </article>
     </main>
 
@@ -72,9 +109,11 @@
                     &copy; 2026 - <b>seleniumeduapp.com</b>
                 </div>
                 <div class="col-md-6 text-center text-md-end">
-                    <a href="about" class="text-decoration-none mx-2">About</a>
-                    <a href="privacy" class="text-decoration-none mx-2">Privacy Policy</a>
-                    <a href="contact" class="text-decoration-none mx-2">Contact Us</a>
+                    <a href="javascript:void(0)" @onclick='() => Navigate("about")' class="text-decoration-none mx-2">About</a>
+                    <a href="javascript:void(0)" @onclick='() => Navigate("privacy")' class="text-decoration-none mx-2">Privacy Policy</a>
+                    <a href="javascript:void(0)" @onclick='() => Navigate("terms")' class="text-decoration-none mx-2">Terms</a>
+                    <a href="javascript:void(0)" @onclick='() => Navigate("disclaimer")' class="text-decoration-none mx-2">Disclaimer</a>
+                    <a href="javascript:void(0)" @onclick='() => Navigate("contact")' class="text-decoration-none mx-2">Contact Us</a>
                 </div>
             </div>
         </div>
@@ -82,11 +121,21 @@
 
 </div>
 
-@* --- HAMBURGER MENU KA C# CODE --- *@
 @code {
     private bool collapseNavMenu = true;
 
     private string? NavMenuCssClass => collapseNavMenu ? "collapse" : null;
+
+    protected override void OnInitialized()
+    {
+        NavService.OnChange += StateHasChanged;
+    }
+
+    private void Navigate(string page)
+    {
+        NavService.NavigateTo(page);
+        CollapseNavMenu();
+    }
 
     private void ToggleNavMenu()
     {
@@ -97,15 +146,18 @@
     {
         collapseNavMenu = true;
     }
+
+    public void Dispose()
+    {
+        NavService.OnChange -= StateHasChanged;
+    }
 }
 
 <style>
-    /* CSS for fixing layout */
     .sidebar { display: none !important; }
     .page { flex-direction: column !important; }
     main { display: flex; flex-direction: column; min-height: 100vh; }
     .content { flex: 1; }
-    
-    /* Hover effect for links */
     .nav-link:hover { color: #f8f9fa !important; text-decoration: underline; }
+    .nav-link.active { text-decoration: underline; }
 </style>

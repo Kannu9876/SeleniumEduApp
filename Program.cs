@@ -11,4 +11,5 @@ builder.Services.AddScoped(sp => new HttpClient { BaseAddress = new Uri(builder.
 builder.Services.AddBlazoredLocalStorage();
 // Yeh humari nayi AI service hai
 builder.Services.AddScoped<GeminiAssistantService>();
+builder.Services.AddSingleton<PageNavigationService>();
 await builder.Build().RunAsync();

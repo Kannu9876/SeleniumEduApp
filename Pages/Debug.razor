@@ -6,7 +6,7 @@
 @inject ILocalStorageService LocalStorage
 
 <PageTitle>AI Debug Bot</PageTitle>
-@* <GoogleAd /> *@
+<GoogleAd />
 <div class="container mt-4">
     <div class="d-flex justify-content-between align-items-center mb-2">
         <h2 class="fw-bold m-0" style="color: #512BD4;">
@@ -75,6 +75,141 @@
 @* <AdBanner Title="Grab Our PDF Guide" 
           Description="Complete C# Locators Cheat Sheet for free." 
           Link="/learn" /> *@
+
+<div class="container my-5 border-top pt-4">
+    <h3 class="fw-bold mb-4">Common Selenium C# Exceptions & How to Fix Them</h3>
+    
+    <div class="row g-4">
+        <div class="col-md-6">
+            <div class="card h-100 border-0 shadow-sm">
+                <div class="card-body">
+                    <h5 class="fw-bold text-danger">NoSuchElementException</h5>
+                    <p class="text-muted">This is the most common Selenium error. It occurs when WebDriver cannot find an element on the page using the specified locator.</p>
+                    <p><b>Common Causes:</b></p>
+                    <ul class="small">
+                        <li>Element has not loaded yet (page still loading)</li>
+                        <li>Incorrect locator (ID, XPath, or CSS Selector is wrong)</li>
+                        <li>Element is inside an iframe or shadow DOM</li>
+                        <li>Element is dynamically generated after page load</li>
+                    </ul>
+                    <p><b>Quick Fix:</b> Use <code>WebDriverWait</code> with <code>ExpectedConditions.ElementIsVisible()</code> to wait for the element before interacting.</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="card h-100 border-0 shadow-sm">
+                <div class="card-body">
+                    <h5 class="fw-bold text-danger">StaleElementReferenceException</h5>
+                    <p class="text-muted">Occurs when a previously found element is no longer attached to the DOM. The page may have been refreshed or the element was re-rendered.</p>
+                    <p><b>Common Causes:</b></p>
+                    <ul class="small">
+                        <li>Page was refreshed after finding the element</li>
+                        <li>JavaScript re-rendered the DOM section</li>
+                        <li>AJAX call updated the element's parent container</li>
+                        <li>Navigation happened between find and interact</li>
+                    </ul>
+                    <p><b>Quick Fix:</b> Re-locate the element immediately before performing the action, or use a retry mechanism with try-catch.</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="card h-100 border-0 shadow-sm">
+                <div class="card-body">
+                    <h5 class="fw-bold text-danger">WebDriverTimeoutException</h5>
+                    <p class="text-muted">Thrown when a wait condition is not satisfied within the specified timeout period.</p>
+                    <p><b>Common Causes:</b></p>
+                    <ul class="small">
+                        <li>Element takes longer to load than expected</li>
+                        <li>Network is slow causing delayed page rendering</li>
+                        <li>Wrong expected condition used in wait</li>
+                        <li>Element is present but not visible or clickable</li>
+                    </ul>
+                    <p><b>Quick Fix:</b> Increase timeout duration or use a more appropriate <code>ExpectedCondition</code> like <code>ElementExists</code> instead of <code>ElementIsVisible</code>.</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="card h-100 border-0 shadow-sm">
+                <div class="card-body">
+                    <h5 class="fw-bold text-danger">ElementClickInterceptedException</h5>
+                    <p class="text-muted">Occurs when the click action is intercepted by another element overlaying the target element.</p>
+                    <p><b>Common Causes:</b></p>
+                    <ul class="small">
+                        <li>A popup, modal, or overlay is blocking the element</li>
+                        <li>Cookie consent banner covering the button</li>
+                        <li>Sticky header/footer overlapping the target</li>
+                        <li>Element is behind a loading spinner</li>
+                    </ul>
+                    <p><b>Quick Fix:</b> Use JavaScript click <code>((IJavaScriptExecutor)driver).ExecuteScript("arguments[0].click();", element)</code> or scroll the element into view first.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="container my-5 border-top pt-4">
+    <h3 class="fw-bold mb-4">Debugging Best Practices for Selenium C#</h3>
+    <div class="row">
+        <div class="col-md-6">
+            <h5>Before Running Tests</h5>
+            <ul>
+                <li><b>Validate locators manually</b> — Use browser DevTools (F12) to test your XPath or CSS selectors before writing code.</li>
+                <li><b>Check page load state</b> — Ensure <code>document.readyState === 'complete'</code> before interacting with elements.</li>
+                <li><b>Use unique locators</b> — Prefer ID > CSS Selector > XPath. Avoid fragile absolute XPaths.</li>
+            </ul>
+        </div>
+        <div class="col-md-6">
+            <h5>When Debugging Failures</h5>
+            <ul>
+                <li><b>Take screenshots on failure</b> — Capture the page state when a test fails to understand what went wrong.</li>
+                <li><b>Check browser console logs</b> — JavaScript errors can cause elements to not render properly.</li>
+                <li><b>Use explicit waits</b> — Replace <code>Thread.Sleep()</code> with <code>WebDriverWait</code> for reliable synchronization.</li>
+            </ul>
+        </div>
+    </div>
+</div>
+
+<div class="container my-5 border-top pt-4">
+    <h3 class="fw-bold mb-3">Frequently Asked Questions</h3>
+    <div class="accordion" id="debugFaq">
+        <div class="accordion-item">
+            <h2 class="accordion-header">
+                <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#dfaq1">
+                    How does the AI Debug Bot work?
+                </button>
+            </h2>
+            <div id="dfaq1" class="accordion-collapse collapse show" data-bs-parent="#debugFaq">
+                <div class="accordion-body">
+                    Simply paste your C# Selenium code and the error message you received. Our AI analyzes the code structure, identifies the root cause of the exception, and provides a corrected version with explanation. It understands common patterns like incorrect waits, wrong locator strategies, and framework-specific issues.
+                </div>
+            </div>
+        </div>
+        <div class="accordion-item">
+            <h2 class="accordion-header">
+                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#dfaq2">
+                    Is there a limit on how many errors I can debug?
+                </button>
+            </h2>
+            <div id="dfaq2" class="accordion-collapse collapse" data-bs-parent="#debugFaq">
+                <div class="accordion-body">
+                    You get free tokens every day that refresh automatically. Each new unique error costs 1 token. However, if you submit the same error again, our smart caching system provides the solution instantly without using any tokens.
+                </div>
+            </div>
+        </div>
+        <div class="accordion-item">
+            <h2 class="accordion-header">
+                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#dfaq3">
+                    What types of Selenium errors can this tool fix?
+                </button>
+            </h2>
+            <div id="dfaq3" class="accordion-collapse collapse" data-bs-parent="#debugFaq">
+                <div class="accordion-body">
+                    Our AI handles all common Selenium WebDriver exceptions including NoSuchElementException, StaleElementReferenceException, TimeoutException, ElementClickInterceptedException, InvalidSelectorException, WebDriverException, and framework-related errors from NUnit, SpecFlow, and MSTest.
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 @code {
     private string UserCode { get; set; } = "";
     private string ErrorMessage { get; set; } = "";
